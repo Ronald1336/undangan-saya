@@ -205,7 +205,7 @@ export default function App() {
             <Couple />
             <Countdown />
             <Event />
-            <Gallery />
+            <Gallery audioRef={audioRef} isPlaying={isPlaying} setIsPlaying={setIsPlaying} />
             <Story />
             <Gift />
             <Footer />
