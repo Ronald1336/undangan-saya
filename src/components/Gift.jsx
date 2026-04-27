@@ -1,18 +1,38 @@
-/* Gift.jsx — Wedding Gift + RSVP / Ucapan */
-import { useState } from 'react'
+/* Gift.jsx — Wedding Gift + RSVP / Ucapan (Supabase) */
+import { useState, useEffect } from 'react'
 import { Copy, Check, Send } from 'lucide-react'
+import { supabase } from '../lib/supabase'
 
 export default function Gift() {
   const [copied, setCopied] = useState(false)
-  const [wishes, setWishes] = useState(() => {
-    try { return JSON.parse(localStorage.getItem('rg_wishes') || '[]') } catch { return [] }
-  })
+  const [wishes, setWishes] = useState([])
   const [form, setForm] = useState({ name: '', message: '', attending: 'hadir' })
   const [sending, setSending] = useState(false)
+  const [loading, setLoading] = useState(true)
 
   const rekening = '307701027727532'
   const bank = 'BRI'
   const nama = 'Arnoldus Haryanto Garum'
+
+  // Fetch wishes dari Supabase
+  useEffect(() => {
+    fetchWishes()
+  }, [])
+
+  const fetchWishes = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('wishes')
+        .select('*')
+        .order('created_at', { ascending: false })
+      if (error) throw error
+      setWishes(data || [])
+    } catch (err) {
+      console.error('Error fetching wishes:', err)
+    } finally {
+      setLoading(false)
+    }
+  }
 
   const handleCopy = async () => {
     try {
@@ -31,22 +51,35 @@ export default function Gift() {
     }
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     if (!form.name.trim() || !form.message.trim()) return
     setSending(true)
-    setTimeout(() => {
-      const newWish = {
-        ...form,
-        id: Date.now(),
-        time: new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' }),
+    try {
+      const { data, error } = await supabase
+        .from('wishes')
+        .insert([{
+          name: form.name.trim(),
+          message: form.message.trim(),
+          attending: form.attending,
+        }])
+        .select()
+      if (error) throw error
+      // Tambahkan ke daftar ucapan
+      if (data) {
+        setWishes([data[0], ...wishes])
       }
-      const updated = [newWish, ...wishes]
-      setWishes(updated)
-      localStorage.setItem('rg_wishes', JSON.stringify(updated))
       setForm({ name: '', message: '', attending: 'hadir' })
+    } catch (err) {
+      console.error('Error submitting wish:', err)
+      alert('Gagal mengirim ucapan. Silakan coba lagi.')
+    } finally {
       setSending(false)
-    }, 500)
+    }
+  }
+
+  const formatDate = (dateStr) => {
+    return new Date(dateStr).toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' })
   }
 
   return (
@@ -162,7 +195,11 @@ export default function Gift() {
       </div>
 
       {/* ── Wishes List ── */}
-      {wishes.length > 0 && (
+      {loading ? (
+        <div className="max-w-sm mx-auto mt-10 text-center">
+          <p className="font-sans text-xs text-brown-500 animate-pulse">Memuat ucapan...</p>
+        </div>
+      ) : wishes.length > 0 && (
         <div className="max-w-sm mx-auto mt-10" style={{ animation: 'fadeIn 0.5s ease forwards' }}>
           <p className="font-sans text-xs text-brown-400 mb-4 text-center">{wishes.length} Ucapan</p>
           <div className="space-y-3 max-h-80 overflow-y-auto pr-1" style={{ scrollbarWidth: 'thin' }}>
@@ -170,7 +207,7 @@ export default function Gift() {
               <div key={w.id} className="glass-card p-4">
                 <div className="flex items-center justify-between mb-2">
                   <span className="font-serif text-sm font-bold text-brown-200">{w.name}</span>
-                  <span className="font-sans text-[10px] text-brown-500">{w.time}</span>
+                  <span className="font-sans text-[10px] text-brown-500">{formatDate(w.created_at)}</span>
                 </div>
                 <p className="font-sans text-xs text-brown-300 leading-relaxed mb-2">{w.message}</p>
                 <span className="inline-block px-2 py-0.5 rounded-full text-[10px] font-sans"
