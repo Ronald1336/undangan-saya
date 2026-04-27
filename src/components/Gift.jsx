@@ -163,7 +163,7 @@ export default function Gift() {
 
       {/* ── Wishes List ── */}
       {wishes.length > 0 && (
-        <div className="reveal max-w-sm mx-auto">
+        <div className="max-w-sm mx-auto mt-10" style={{ animation: 'fadeIn 0.5s ease forwards' }}>
           <p className="font-sans text-xs text-brown-400 mb-4 text-center">{wishes.length} Ucapan</p>
           <div className="space-y-3 max-h-80 overflow-y-auto pr-1" style={{ scrollbarWidth: 'thin' }}>
             {wishes.map((w) => (
