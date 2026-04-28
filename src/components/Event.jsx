@@ -15,7 +15,7 @@ export default function Event() {
     {
       title: 'Resepsi',
       date: 'Jumaat, 17 Juli 2026',
-      time: '08 : 00 WITA - Selesai',
+      time: '20 : 00 WITA - Selesai',
       venue: 'Lapangan Sepak Bola, Orong',
       address: 'Jl. Pastoran, Orong, Kec. Welak, Kabupaten Manggarai Barat, Nusa Tenggara Tim.',
       mapUrl: 'https://maps.google.com/?q=Lapangan+Sepak+Bola+Orong+Welak+Manggarai+Barat',
