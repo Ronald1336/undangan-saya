@@ -200,7 +200,7 @@ export default function Gift() {
           <p className="font-sans text-xs text-brown-400 mb-4 text-center">{wishes.length} Ucapan</p>
           <div className="space-y-3 max-h-80 overflow-y-auto pr-1" style={{ scrollbarWidth: 'thin' }}>
             {wishes.map((w) => (
-              <div key={w.id} className="glass-card p-4">
+              <div key={w.id} className="p-4 rounded-2xl" style={{ background: 'rgba(26,15,10,0.85)', border: '1px solid rgba(139,111,71,0.25)' }}>
                 <div className="flex items-center justify-between mb-2">
                   <span className="font-serif text-sm font-bold text-brown-200">{w.name}</span>
                   <span className="font-sans text-[10px] text-brown-500">{formatDate(w.created_at)}</span>
