@@ -35,7 +35,7 @@ const stories = [
 
 export default function Story() {
   return (
-    <section id="story" className="relative py-16 px-4" style={{ background: 'rgba(26,15,10,0.2)' }}>
+    <section id="story" className="relative py-16 px-4" style={{ background: 'rgba(26,15,10,0.1)' }}>
       {/* Heading */}
       <div className="reveal text-center mb-12">
         <h2 className="section-divider max-w-xs mx-auto font-display text-xl tracking-[0.3em] uppercase text-brown-200">
@@ -53,15 +53,7 @@ export default function Story() {
             >
               {/* Text with frosted glass behind it */}
               <div className="flex-1 relative">
-                <div
-                  className="relative z-10 h-full p-4 rounded-xl"
-                  style={{
-                    background: 'rgba(26,15,10,0.45)',
-                    backdropFilter: 'blur(20px)',
-                    WebkitBackdropFilter: 'blur(20px)',
-                    border: '1px solid rgba(139,111,71,0.15)',
-                  }}
-                >
+                <div className="glass-card relative z-10 h-full p-4">
                   <h4 className="font-serif text-base font-bold text-brown-100 mb-3">{s.title}</h4>
                   <p className="font-sans text-xs text-brown-300 leading-relaxed" style={{ lineHeight: '1.9', whiteSpace: 'pre-line' }}>
                     {s.text}

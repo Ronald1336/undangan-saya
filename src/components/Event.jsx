@@ -24,7 +24,7 @@ export default function Event() {
   ]
 
   return (
-    <section id="event" className="relative py-16 px-5 overflow-hidden" style={{ background: 'rgba(26,15,10,0.3)' }}>
+    <section id="event" className="relative py-16 px-5 overflow-hidden" style={{ background: 'rgba(26,15,10,0.15)' }}>
       <div className="relative z-10">
         {events.map((ev, i) => (
           <div 

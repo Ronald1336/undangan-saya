@@ -83,7 +83,7 @@ export default function Gift() {
   }
 
   return (
-    <section id="gift" className="relative py-16 px-5" style={{ background: 'rgba(26,15,10,0.35)', backdropFilter: 'blur(24px)', WebkitBackdropFilter: 'blur(24px)' }}>
+    <section id="gift" className="relative py-16 px-5" style={{ background: 'rgba(26,15,10,0.15)' }}>
       
       {/* ── Wedding Gift ── */}
       <div className="reveal text-center mb-10">
@@ -142,8 +142,7 @@ export default function Gift() {
               value={form.name}
               onChange={(e) => setForm({ ...form, name: e.target.value })}
               placeholder="Masukkan nama Anda"
-              className="w-full px-4 py-2.5 rounded-lg font-sans text-sm text-brown-100 placeholder-brown-500 outline-none transition-all duration-300 focus:ring-1 focus:ring-brown-400"
-              style={{ background: 'rgba(26,15,10,0.6)', border: '1px solid rgba(139,111,71,0.25)' }}
+              className="glass-input w-full px-4 py-2.5 font-sans text-sm text-brown-100 placeholder-brown-500"
               required
             />
           </div>
@@ -154,8 +153,7 @@ export default function Gift() {
             <select
               value={form.attending}
               onChange={(e) => setForm({ ...form, attending: e.target.value })}
-              className="w-full px-4 py-2.5 rounded-lg font-sans text-sm text-brown-100 outline-none transition-all duration-300 focus:ring-1 focus:ring-brown-400 cursor-pointer"
-              style={{ background: 'rgba(26,15,10,0.6)', border: '1px solid rgba(139,111,71,0.25)' }}
+              className="glass-input w-full px-4 py-2.5 font-sans text-sm text-brown-100 cursor-pointer"
             >
               <option value="hadir">✓ Hadir</option>
               <option value="tidak">✗ Tidak Hadir</option>
@@ -171,8 +169,7 @@ export default function Gift() {
               onChange={(e) => setForm({ ...form, message: e.target.value })}
               placeholder="Tulis ucapan dan doa Anda..."
               rows={3}
-              className="w-full px-4 py-2.5 rounded-lg font-sans text-sm text-brown-100 placeholder-brown-500 outline-none resize-none transition-all duration-300 focus:ring-1 focus:ring-brown-400"
-              style={{ background: 'rgba(26,15,10,0.6)', border: '1px solid rgba(139,111,71,0.25)' }}
+              className="glass-input w-full px-4 py-2.5 font-sans text-sm text-brown-100 placeholder-brown-500 resize-none"
               required
             />
           </div>
@@ -181,12 +178,7 @@ export default function Gift() {
           <button
             type="submit"
             disabled={sending}
-            className="w-full flex items-center justify-center gap-2 py-3 rounded-lg font-sans text-sm tracking-wider uppercase transition-all duration-300 cursor-pointer disabled:opacity-50"
-            style={{
-              background: 'linear-gradient(135deg, rgba(139,111,71,0.4), rgba(139,111,71,0.2))',
-              border: '1px solid rgba(139,111,71,0.4)',
-              color: '#D4B896',
-            }}
+            className="glass-btn w-full flex items-center justify-center gap-2 py-3 font-sans text-sm tracking-wider uppercase disabled:opacity-50"
           >
             <Send size={14} />
             {sending ? 'Mengirim...' : 'Kirim Ucapan'}

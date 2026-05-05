@@ -2,7 +2,7 @@
 
 export default function Couple() {
   return (
-    <section id="couple" className="relative py-16 px-5" style={{ background: 'rgba(26,15,10,0.35)', backdropFilter: 'blur(24px)', WebkitBackdropFilter: 'blur(24px)' }}>
+    <section id="couple" className="relative py-16 px-5" style={{ background: 'rgba(26,15,10,0.15)' }}>
       
       {/* Bible Verse */}
       <div className="reveal max-w-md mx-auto mb-14">
@@ -21,24 +21,26 @@ export default function Couple() {
 
       {/* The Groom */}
       <div className="reveal max-w-sm mx-auto mb-10 text-center">
-        <h3 className="font-display text-lg tracking-[0.25em] uppercase text-brown-300 mb-6">
-          THE GROOM
-        </h3>
-        <div className="photo-frame mx-auto mb-6" style={{ maxWidth: '280px', aspectRatio: '3/4' }}>
-          <img 
-            src="/the-groom.jpg" 
-            alt="The Groom" 
-            className="w-full h-full object-cover"
-            loading="lazy"
-          />
+        <div className="glass-panel p-8">
+          <h3 className="font-display text-lg tracking-[0.25em] uppercase text-brown-300 mb-6">
+            THE GROOM
+          </h3>
+          <div className="photo-frame mx-auto mb-6" style={{ maxWidth: '280px', aspectRatio: '3/4' }}>
+            <img 
+              src="/the-groom.jpg" 
+              alt="The Groom" 
+              className="w-full h-full object-cover"
+              loading="lazy"
+            />
+          </div>
+          <h2 className="font-script text-3xl md:text-4xl text-gold-light mb-3" style={{ lineHeight: '1.3' }}>
+            Arnoldus Haryanto Garum
+          </h2>
+          <p className="font-serif text-sm text-brown-200 italic leading-relaxed">
+            Putra kedua dari Bapak Rofinus Garum<br />
+            dan Ibu Avelina Ramla
+          </p>
         </div>
-        <h2 className="font-script text-3xl md:text-4xl text-gold-light mb-3" style={{ lineHeight: '1.3' }}>
-          Arnoldus Haryanto Garum
-        </h2>
-        <p className="font-serif text-sm text-brown-200 italic leading-relaxed">
-          Putra kedua dari Bapak Rofinus Garum<br />
-          dan Ibu Avelina Ramla
-        </p>
       </div>
 
       {/* Ampersand */}
@@ -48,24 +50,26 @@ export default function Couple() {
 
       {/* The Bride */}
       <div className="reveal max-w-sm mx-auto text-center">
-        <h3 className="font-display text-lg tracking-[0.25em] uppercase text-brown-300 mb-6">
-          THE BRIDE
-        </h3>
-        <div className="photo-frame mx-auto mb-6" style={{ maxWidth: '280px', aspectRatio: '3/4' }}>
-          <img 
-            src="/the-bride.jpg" 
-            alt="The Bride" 
-            className="w-full h-full object-cover"
-            loading="lazy"
-          />
+        <div className="glass-panel p-8">
+          <h3 className="font-display text-lg tracking-[0.25em] uppercase text-brown-300 mb-6">
+            THE BRIDE
+          </h3>
+          <div className="photo-frame mx-auto mb-6" style={{ maxWidth: '280px', aspectRatio: '3/4' }}>
+            <img 
+              src="/the-bride.jpg" 
+              alt="The Bride" 
+              className="w-full h-full object-cover"
+              loading="lazy"
+            />
+          </div>
+          <h2 className="font-script text-3xl md:text-4xl text-gold-light mb-3" style={{ lineHeight: '1.3' }}>
+            Eugracia Mariani Vitus
+          </h2>
+          <p className="font-serif text-sm text-brown-200 italic leading-relaxed">
+            Putri Pertama dari Bapak Adrianus Vitus<br />
+            dan Ibu Ermelinda Rajuni Gatur
+          </p>
         </div>
-        <h2 className="font-script text-3xl md:text-4xl text-gold-light mb-3" style={{ lineHeight: '1.3' }}>
-          Eugracia Mariani Vitus
-        </h2>
-        <p className="font-serif text-sm text-brown-200 italic leading-relaxed">
-          Putri Pertama dari Bapak Adrianus Vitus<br />
-          dan Ibu Ermelinda Rajuni Gatur
-        </p>
       </div>
     </section>
   )

@@ -135,7 +135,7 @@ export default function Gallery({ audioRef, isPlaying, setIsPlaying }) {
   }
 
   return (
-    <section id="gallery" className="relative py-16 px-5" style={{ background: 'rgba(30,20,16,0.35)', backdropFilter: 'blur(24px)', WebkitBackdropFilter: 'blur(24px)' }}>
+    <section id="gallery" className="relative py-16 px-5" style={{ background: 'rgba(30,20,16,0.15)' }}>
       {/* Heading */}
       <div className="reveal text-center mb-10">
         <h2 className="section-divider max-w-xs mx-auto font-display text-xl tracking-[0.3em] uppercase text-brown-200">

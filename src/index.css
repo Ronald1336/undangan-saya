@@ -55,11 +55,54 @@ body {
 
 /* ── Glass Card ── */
 .glass-card {
-  background: rgba(44, 24, 16, 0.7);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(139, 111, 71, 0.25);
-  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(40px) saturate(1.4);
+  -webkit-backdrop-filter: blur(40px) saturate(1.4);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+/* ── Glass Panel (larger containers) ── */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(40px) saturate(1.5);
+  -webkit-backdrop-filter: blur(40px) saturate(1.5);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+/* ── Glass Input ── */
+.glass-input {
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+.glass-input:focus {
+  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.05);
+  outline: none;
+}
+
+/* ── Glass Button ── */
+.glass-btn {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  color: #D4B896;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+.glass-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
 }
 
 /* ── Photo Frame ── */
@@ -129,12 +172,15 @@ body {
 
 /* ── Countdown Digit Box ── */
 .countdown-digit {
-  background: linear-gradient(145deg, #3D2517, #2C1810);
-  border: 1px solid rgba(139, 111, 71, 0.3);
-  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 14px;
   min-width: 42px;
   padding: 8px 4px;
   text-align: center;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.06);
 }
 
 /* ── Bottom Nav ── */
@@ -174,12 +220,13 @@ body {
 
 /* ── Event Card ── */
 .event-card {
-  background: rgba(26, 15, 10, 0.85);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(139, 111, 71, 0.25);
-  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.07);
+  backdrop-filter: blur(40px) saturate(1.4);
+  -webkit-backdrop-filter: blur(40px) saturate(1.4);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
   padding: 24px 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.06);
 }
 
 /* ── Story Timeline ── */
@@ -209,8 +256,10 @@ body {
   gap: 6px;
   padding: 8px 16px;
   background: rgba(139, 111, 71, 0.15);
-  border: 1px solid rgba(139, 111, 71, 0.4);
-  border-radius: 8px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(139, 111, 71, 0.3);
+  border-radius: 10px;
   color: #D4B896;
   font-size: 12px;
   font-family: var(--font-sans);
@@ -222,6 +271,7 @@ body {
 .btn-location:hover {
   background: rgba(139, 111, 71, 0.3);
   border-color: #8B6F47;
+  box-shadow: 0 4px 16px rgba(139, 111, 71, 0.15);
 }
 
 /* ── Utility ── */
