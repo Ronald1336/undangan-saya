@@ -96,7 +96,7 @@ export default function Gift() {
       </div>
 
       <div className="reveal max-w-sm mx-auto mb-16">
-        <div className="glass-card p-6 text-center">
+        <div className="p-6 text-center rounded-2xl" style={{ background: 'rgba(26,15,10,0.85)', border: '1px solid rgba(139,111,71,0.25)' }}>
           <div className="mb-4">
             <span className="inline-block px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase"
               style={{ background: 'linear-gradient(135deg, #003d79, #0066cc)', color: '#fff' }}>
@@ -133,7 +133,7 @@ export default function Gift() {
       </div>
 
       <div className="reveal max-w-sm mx-auto mb-10">
-        <form onSubmit={handleSubmit} className="glass-card p-5 space-y-4">
+        <form onSubmit={handleSubmit} className="p-5 space-y-4 rounded-2xl" style={{ background: 'rgba(26,15,10,0.85)', border: '1px solid rgba(139,111,71,0.25)' }}>
           {/* Name */}
           <div>
             <label className="block font-sans text-xs text-brown-300 mb-1.5 tracking-wide">Nama</label>
@@ -142,7 +142,8 @@ export default function Gift() {
               value={form.name}
               onChange={(e) => setForm({ ...form, name: e.target.value })}
               placeholder="Masukkan nama Anda"
-              className="glass-input w-full px-4 py-2.5 font-sans text-sm text-brown-100 placeholder-brown-500"
+              className="w-full px-4 py-2.5 rounded-lg font-sans text-sm text-brown-100 placeholder-brown-500 outline-none transition-all duration-300 focus:ring-1 focus:ring-brown-400"
+              style={{ background: 'rgba(26,15,10,0.6)', border: '1px solid rgba(139,111,71,0.25)' }}
               required
             />
           </div>
@@ -153,7 +154,8 @@ export default function Gift() {
             <select
               value={form.attending}
               onChange={(e) => setForm({ ...form, attending: e.target.value })}
-              className="glass-input w-full px-4 py-2.5 font-sans text-sm text-brown-100 cursor-pointer"
+              className="w-full px-4 py-2.5 rounded-lg font-sans text-sm text-brown-100 outline-none cursor-pointer"
+              style={{ background: 'rgba(26,15,10,0.6)', border: '1px solid rgba(139,111,71,0.25)' }}
             >
               <option value="hadir">✓ Hadir</option>
               <option value="tidak">✗ Tidak Hadir</option>
@@ -169,7 +171,8 @@ export default function Gift() {
               onChange={(e) => setForm({ ...form, message: e.target.value })}
               placeholder="Tulis ucapan dan doa Anda..."
               rows={3}
-              className="glass-input w-full px-4 py-2.5 font-sans text-sm text-brown-100 placeholder-brown-500 resize-none"
+              className="w-full px-4 py-2.5 rounded-lg font-sans text-sm text-brown-100 placeholder-brown-500 resize-none outline-none"
+              style={{ background: 'rgba(26,15,10,0.6)', border: '1px solid rgba(139,111,71,0.25)' }}
               required
             />
           </div>
@@ -178,7 +181,8 @@ export default function Gift() {
           <button
             type="submit"
             disabled={sending}
-            className="glass-btn w-full flex items-center justify-center gap-2 py-3 font-sans text-sm tracking-wider uppercase disabled:opacity-50"
+            className="w-full flex items-center justify-center gap-2 py-3 rounded-lg font-sans text-sm tracking-wider uppercase cursor-pointer disabled:opacity-50"
+            style={{ background: 'linear-gradient(135deg, rgba(139,111,71,0.4), rgba(139,111,71,0.2))', border: '1px solid rgba(139,111,71,0.4)', color: '#D4B896' }}
           >
             <Send size={14} />
             {sending ? 'Mengirim...' : 'Kirim Ucapan'}
