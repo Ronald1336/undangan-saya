@@ -5,7 +5,7 @@ export default function Couple() {
     <section id="couple" className="relative py-16 px-5" style={{ background: 'rgba(26,15,10,0.15)' }}>
       
       {/* Bible Verse */}
-      <div className="reveal max-w-md mx-auto mb-14">
+      <div className="reveal-fade max-w-md mx-auto mb-14">
         <div className="text-center mb-4">
           <span className="font-serif italic text-sm text-gold-light tracking-wide">
             1 Yohanes 4:16
@@ -20,7 +20,7 @@ export default function Couple() {
       </div>
 
       {/* Groom & Bride — Single Glass Panel */}
-      <div className="reveal max-w-sm mx-auto">
+      <div className="reveal-zoom max-w-sm mx-auto">
         <div className="glass-panel p-8">
           {/* The Groom */}
           <div className="text-center mb-10">

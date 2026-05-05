@@ -37,7 +37,7 @@ export default function Story() {
   return (
     <section id="story" className="relative py-16 px-4" style={{ background: 'rgba(26,15,10,0.1)' }}>
       {/* Heading */}
-      <div className="reveal text-center mb-12">
+      <div className="reveal-fade text-center mb-12">
         <h2 className="section-divider max-w-xs mx-auto font-display text-xl tracking-[0.3em] uppercase text-brown-200">
           LOVE STORY
         </h2>
@@ -46,7 +46,7 @@ export default function Story() {
       {/* Stories */}
       <div className="max-w-lg mx-auto space-y-6">
         {stories.map((s, i) => (
-          <div key={i} className="reveal relative">
+          <div key={i} className={i % 2 === 0 ? 'reveal-left' : 'reveal-right'} style={{ position: 'relative' }}>
             {/* Layout container */}
             <div className={`flex items-stretch gap-3 ${s.photoPosition === 'left' ? 'flex-row-reverse' : 'flex-row'}`}
               style={{ minHeight: '200px' }}

@@ -34,14 +34,14 @@ export default function Countdown() {
   return (
     <section id="countdown" className="relative py-16 px-5" style={{ background: 'rgba(26,15,10,0.15)' }}>
       {/* Heading */}
-      <div className="reveal text-center mb-10">
+      <div className="reveal-fade text-center mb-10">
         <h2 className="section-divider max-w-xs mx-auto font-display text-xl tracking-[0.3em] uppercase text-brown-200">
           SAVE THE DATE
         </h2>
       </div>
 
       {/* Timer */}
-      <div className="reveal flex justify-center gap-4 md:gap-6 max-w-md mx-auto">
+      <div className="reveal stagger-2 flex justify-center gap-4 md:gap-6 max-w-md mx-auto">
         {units.map((u, i) => (
           <div key={i} className="text-center">
             <div className="flex gap-1 mb-2">

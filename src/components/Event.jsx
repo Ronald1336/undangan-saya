@@ -29,7 +29,7 @@ export default function Event() {
         {events.map((ev, i) => (
           <div 
             key={i} 
-            className={`reveal max-w-sm mb-10 ${ev.align === 'right' ? 'ml-auto mr-4' : 'ml-4'}`}
+            className={`${ev.align === 'right' ? 'reveal-right' : 'reveal-left'} max-w-sm mb-10 ${ev.align === 'right' ? 'ml-auto mr-4' : 'ml-4'}`}
           >
             <div className="event-card">
               <h3 className="font-display text-xl tracking-[0.15em] text-brown-100 mb-3">

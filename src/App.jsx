@@ -36,7 +36,7 @@ function useScrollReveal(isReady) {
         },
         { threshold: 0.05, rootMargin: '0px 0px -20px 0px' }
       )
-      document.querySelectorAll('.reveal').forEach((el) => observer.observe(el))
+      document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-zoom, .reveal-fade').forEach((el) => observer.observe(el))
     }, 100)
 
     return () => clearTimeout(timer)

@@ -86,7 +86,7 @@ export default function Gift() {
     <section id="gift" className="relative py-16 px-5" style={{ background: 'rgba(26,15,10,0.15)' }}>
       
       {/* ── Wedding Gift ── */}
-      <div className="reveal text-center mb-10">
+      <div className="reveal-fade text-center mb-10">
         <h2 className="section-divider max-w-xs mx-auto font-display text-xl tracking-[0.3em] uppercase text-brown-200">
           WEDDING GIFT
         </h2>
@@ -95,7 +95,7 @@ export default function Gift() {
         </p>
       </div>
 
-      <div className="reveal max-w-sm mx-auto mb-16">
+      <div className="reveal-zoom max-w-sm mx-auto mb-16">
         <div className="p-6 text-center rounded-2xl" style={{ background: 'rgba(26,15,10,0.85)', border: '1px solid rgba(139,111,71,0.25)' }}>
           <div className="mb-4">
             <span className="inline-block px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase"
@@ -123,7 +123,7 @@ export default function Gift() {
       </div>
 
       {/* ── RSVP & Ucapan ── */}
-      <div className="reveal text-center mb-8">
+      <div className="reveal-fade text-center mb-8">
         <h2 className="section-divider max-w-xs mx-auto font-display text-xl tracking-[0.3em] uppercase text-brown-200">
           UCAPAN & DOA
         </h2>
@@ -132,7 +132,7 @@ export default function Gift() {
         </p>
       </div>
 
-      <div className="reveal max-w-sm mx-auto mb-10">
+      <div className="reveal stagger-2 max-w-sm mx-auto mb-10">
         <form onSubmit={handleSubmit} className="p-5 space-y-4 rounded-2xl" style={{ background: 'rgba(26,15,10,0.85)', border: '1px solid rgba(139,111,71,0.25)' }}>
           {/* Name */}
           <div>

@@ -137,14 +137,14 @@ export default function Gallery({ audioRef, isPlaying, setIsPlaying }) {
   return (
     <section id="gallery" className="relative py-16 px-5" style={{ background: 'rgba(30,20,16,0.15)' }}>
       {/* Heading */}
-      <div className="reveal text-center mb-10">
+      <div className="reveal-fade text-center mb-10">
         <h2 className="section-divider max-w-xs mx-auto font-display text-xl tracking-[0.3em] uppercase text-brown-200">
           GALLERY
         </h2>
       </div>
 
       {/* Video */}
-      <div ref={containerRef} className="reveal max-w-md mx-auto mb-8">
+      <div ref={containerRef} className="reveal-zoom max-w-md mx-auto mb-8">
         <div
           className="relative rounded-xl overflow-hidden"
           style={{
@@ -190,7 +190,7 @@ export default function Gallery({ audioRef, isPlaying, setIsPlaying }) {
       </div>
 
       {/* Photo Grid */}
-      <div className="reveal max-w-md mx-auto grid grid-cols-3 gap-2">
+      <div className="reveal stagger-3 max-w-md mx-auto grid grid-cols-3 gap-2">
         {photos.map((photo) => (
           <div 
             key={photo.id} 
