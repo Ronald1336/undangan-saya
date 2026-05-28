@@ -8,6 +8,7 @@ import Gift from './components/Gift'
 import Footer from './components/Footer'
 import BottomNav from './components/BottomNav'
 import MusicToggle from './components/MusicToggle'
+import AutoScroll from './components/AutoScroll'
 import BackgroundSlideshow from './components/BackgroundSlideshow'
 
 /* ── Helper: read guest name from URL ── */
@@ -112,6 +113,26 @@ export default function App() {
         .then(() => setIsPlaying(true))
         .catch(() => setIsPlaying(false))
     }
+
+    // Request fullscreen for a more immersive experience
+    const docEl = document.documentElement
+    if (docEl.requestFullscreen) {
+      docEl.requestFullscreen().catch((err) => {
+        console.warn("Fullscreen request failed:", err)
+      })
+    } else if (docEl.webkitRequestFullscreen) {
+      try {
+        docEl.webkitRequestFullscreen()
+      } catch (err) {
+        console.warn("WebKit Fullscreen request failed:", err)
+      }
+    } else if (docEl.msRequestFullscreen) {
+      try {
+        docEl.msRequestFullscreen()
+      } catch (err) {
+        console.warn("MS Fullscreen request failed:", err)
+      }
+    }
   }, [])
 
   const toggleMusic = useCallback(() => {
@@ -212,6 +233,7 @@ export default function App() {
           </main>
 
           <MusicToggle isPlaying={isPlaying} toggle={toggleMusic} />
+          <AutoScroll />
           <BottomNav activeSection={activeSection} />
         </>
       )}

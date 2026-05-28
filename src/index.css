@@ -353,6 +353,34 @@ body {
   background: rgba(139, 111, 71, 0.5);
 }
 
+/* ── Auto Scroll Toggle ── */
+.auto-scroll-toggle {
+  position: fixed;
+  bottom: 136px;
+  right: 16px;
+  z-index: 101;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(139, 111, 71, 0.3);
+  border: 1px solid rgba(139, 111, 71, 0.4);
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #D4B896;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.auto-scroll-toggle:hover {
+  background: rgba(139, 111, 71, 0.5);
+}
+.auto-scroll-toggle.active {
+  background: rgba(139, 111, 71, 0.6);
+  border-color: #D4B896;
+  box-shadow: 0 0 12px rgba(212, 184, 150, 0.4);
+}
+
 /* ── Padding for bottom nav ── */
 main {
   padding-bottom: 70px;
