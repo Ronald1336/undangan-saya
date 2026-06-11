@@ -29,7 +29,7 @@ export default function Couple() {
             </h3>
             <div className="photo-frame mx-auto mb-6" style={{ maxWidth: '280px', aspectRatio: '3/4' }}>
               <img 
-                src="/the-groom.jpg" 
+                src="/pria.jpg" 
                 alt="The Groom" 
                 className="w-full h-full object-cover"
                 loading="lazy"
@@ -56,7 +56,7 @@ export default function Couple() {
             </h3>
             <div className="photo-frame mx-auto mb-6" style={{ maxWidth: '280px', aspectRatio: '3/4' }}>
               <img 
-                src="/the-bride.jpg" 
+                src="/wanita.jpg" 
                 alt="The Bride" 
                 className="w-full h-full object-cover"
                 loading="lazy"
