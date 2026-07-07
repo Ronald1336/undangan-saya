@@ -1,18 +1,13 @@
-/* Gift.jsx — Wedding Gift + RSVP / Ucapan (Supabase) */
+/* Gift.jsx — Keluarga Besar + RSVP / Ucapan (Supabase) */
 import { useState, useEffect } from 'react'
-import { Copy, Check, Send } from 'lucide-react'
+import { Send } from 'lucide-react'
 import { supabase } from '../lib/supabase'
 
 export default function Gift() {
-  const [copied, setCopied] = useState(false)
   const [wishes, setWishes] = useState([])
   const [form, setForm] = useState({ name: '', message: '', attending: 'hadir' })
   const [sending, setSending] = useState(false)
   const [loading, setLoading] = useState(true)
-
-  const rekening = '307701027727532'
-  const bank = 'BRI'
-  const nama = 'Arnoldus Haryanto Garum'
 
   // Fetch wishes dari Supabase
   useEffect(() => {
@@ -31,23 +26,6 @@ export default function Gift() {
       console.error('Error fetching wishes:', err)
     } finally {
       setLoading(false)
-    }
-  }
-
-  const handleCopy = async () => {
-    try {
-      await navigator.clipboard.writeText(rekening)
-      setCopied(true)
-      setTimeout(() => setCopied(false), 2000)
-    } catch {
-      const ta = document.createElement('textarea')
-      ta.value = rekening
-      document.body.appendChild(ta)
-      ta.select()
-      document.execCommand('copy')
-      document.body.removeChild(ta)
-      setCopied(true)
-      setTimeout(() => setCopied(false), 2000)
     }
   }
 
@@ -85,40 +63,52 @@ export default function Gift() {
   return (
     <section id="gift" className="relative py-16 px-5" style={{ background: 'rgba(26,15,10,0.15)' }}>
       
-      {/* ── Wedding Gift ── */}
+      {/* ── Keluarga Besar ── */}
       <div className="reveal-fade text-center mb-10">
         <h2 className="section-divider max-w-xs mx-auto font-display text-xl tracking-[0.3em] uppercase text-brown-200">
-          WEDDING GIFT
+          TURUT MENGUNDANG
         </h2>
-        <p className="font-sans text-xs text-brown-400 mt-4 max-w-sm mx-auto leading-relaxed">
-          Doa restu Anda merupakan karunia yang sangat berarti bagi kami. Jika memberi adalah ungkapan tanda kasih, Anda dapat memberi kado secara cashless.
-        </p>
       </div>
 
-      <div className="reveal-zoom max-w-sm mx-auto mb-16">
-        <div className="p-6 text-center rounded-2xl" style={{ background: 'rgba(26,15,10,0.85)', border: '1px solid rgba(139,111,71,0.25)' }}>
-          <div className="mb-4">
-            <span className="inline-block px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase"
-              style={{ background: 'linear-gradient(135deg, #003d79, #0066cc)', color: '#fff' }}>
-              {bank}
-            </span>
+      <div className="reveal-zoom max-w-2xl mx-auto mb-16 px-2">
+        <div className="p-6 md:p-8 rounded-2xl" style={{ background: 'rgba(26,15,10,0.85)', border: '1px solid rgba(139,111,71,0.25)' }}>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {/* Keluarga Besar Pria */}
+            <div className="text-center">
+              <h3 className="font-serif text-sm font-bold text-gold-light mb-4 border-b border-brown-700 pb-2 tracking-wider">
+                KELUARGA BESAR MEMPELAI PRIA
+              </h3>
+              <ul className="space-y-2 text-xs text-brown-200 font-sans">
+                <li>Rofinus Garum</li>
+                <li>Nobertus Natung</li>
+                <li>Agustinus Jehadut</li>
+                <li>Laurensius Meon</li>
+                <li>Damianus Raju</li>
+                <li>Katas Petrus</li>
+                <li>Pater Firminus Wiryono, SVD</li>
+                <li>Yohanes Abut</li>
+                <li>Herman Anggul</li>
+                <li>Bapenda Mabar</li>
+              </ul>
+            </div>
+
+            {/* Keluarga Besar Wanita */}
+            <div className="text-center">
+              <h3 className="font-serif text-sm font-bold text-gold-light mb-4 border-b border-brown-700 pb-2 tracking-wider">
+                KELUARGA BESAR MEMPELAI WANITA
+              </h3>
+              <ul className="space-y-2 text-xs text-brown-200 font-sans">
+                <li>Antonius Hakur</li>
+                <li>Bibiana Jaya</li>
+                <li>Romanus Gatur</li>
+                <li>RD. Ferdinandus M. Mayus, Pr.</li>
+                <li>Keluarga besar paang ngaung Kuwu-Orong</li>
+                <li>Keluarga besar Doro-Pacar</li>
+                <li>Keluarga Besar Monsok Kolang</li>
+                <li>Keluarga Besar Marine Ford</li>
+              </ul>
+            </div>
           </div>
-          <p className="font-serif text-sm text-brown-200 mb-1">a.n.</p>
-          <p className="font-serif text-base font-bold text-brown-100 mb-4">{nama}</p>
-          <div className="flex items-center justify-center gap-3 mb-4">
-            <span className="font-mono text-lg tracking-wider text-gold-light">{rekening}</span>
-            <button 
-              onClick={handleCopy}
-              className="p-2 rounded-lg transition-all duration-300 cursor-pointer"
-              style={{ background: copied ? 'rgba(34,197,94,0.2)' : 'rgba(139,111,71,0.2)', border: '1px solid rgba(139,111,71,0.3)' }}
-              aria-label="Copy rekening"
-            >
-              {copied ? <Check size={16} className="text-green-400" /> : <Copy size={16} className="text-brown-300" />}
-            </button>
-          </div>
-          {copied && (
-            <p className="text-xs text-green-400 animate-fade-in">Nomor rekening berhasil disalin!</p>
-          )}
         </div>
       </div>
 
