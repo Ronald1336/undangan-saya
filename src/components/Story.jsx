@@ -10,7 +10,7 @@ const stories = [
   {
     title: 'Tentang Bertumbuh',
     text: 'Bukan tentang seberapa cepat kita sampai, tapi tentang seberapa kuat kita bertahan saat langkah terasa berat. Kita hanyalah dua orang sederhana yang sepakat bahwa cinta bukan hanya soal debar di dada, melainkan soal komitmen untuk tetap tinggal saat musim berganti dan badai menyapa.',
-    photo: '/galeri-3.jpg.jpeg',
+    photo: '/bertumbuh.webp',
     photoPosition: 'left',
   },
   {
@@ -28,7 +28,7 @@ const stories = [
   {
     title: 'Menuju Langkah Baru',
     text: '"Akan tiba masanya..."\nHari di mana kami membuka babak baru sebagai satu kesatuan. Mohon doa restu agar setiap langkah kami kedepan senantiasa dibimbing oleh cahaya-Nya, penuh ketenangan, dan dilingkupi keberkahan yang tak terputus.',
-    photo: '/galeri-6.jpg.jpeg',
+    photo: '/langkah_baru.jpg',
     photoPosition: 'right',
   },
 ]
