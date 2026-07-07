@@ -88,7 +88,7 @@ export default function Gift() {
                 <li>Pater Firminus Wiryono, SVD</li>
                 <li>Yohanes Abut</li>
                 <li>Herman Anggul</li>
-                <li>Bapenda Mabar</li>
+                <li>Keluarga Besar Bapenda Mabar</li>
               </ul>
             </div>
 

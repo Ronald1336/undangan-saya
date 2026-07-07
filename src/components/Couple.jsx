@@ -39,7 +39,7 @@ export default function Couple() {
               Arnoldus Haryanto Garum
             </h2>
             <p className="font-serif text-sm text-brown-200 italic leading-relaxed">
-              Putra kedua dari Bapak Rofinus Garum<br />
+              Putra dari Bapak Rofinus Garum<br />
               dan Ibu Avelina Ramla
             </p>
           </div>
@@ -66,7 +66,7 @@ export default function Couple() {
               Eugracia Mariani Vitus
             </h2>
             <p className="font-serif text-sm text-brown-200 italic leading-relaxed">
-              Putri Pertama dari Bapak Adrianus Vitus<br />
+              Putri dari Bapak Adrianus Vitus<br />
               dan Ibu Ermelinda Rajuni Gatur
             </p>
           </div>
