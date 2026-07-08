@@ -12,12 +12,22 @@ export default function Gallery({ audioRef, isPlaying, setIsPlaying }) {
   const fadeIntervalRef = useRef(null)
 
   const photos = [
-    { id: 1, src: '/galeri-1.jpg.jpeg', alt: 'Momen 1', span: 'col-span-2 row-span-2' },
-    { id: 2, src: '/galeri-2.jpg.jpeg', alt: 'Momen 2', span: '' },
-    { id: 3, src: '/galeri-3.jpg.jpeg', alt: 'Momen 3', span: '' },
-    { id: 4, src: '/galeri-4.jpg.jpeg', alt: 'Momen 4', span: '' },
-    { id: 5, src: '/galeri-5.jpg.jpeg', alt: 'Momen 5', span: '' },
-    { id: 6, src: '/galeri-6.jpg.jpeg', alt: 'Momen 6', span: 'col-span-2' },
+    { id: 1, src: '/foto1.webp', alt: 'Momen 1', span: 'col-span-2 row-span-2' },
+    { id: 2, src: '/foto2.webp', alt: 'Momen 2', span: '' },
+    { id: 3, src: '/foto3.webp', alt: 'Momen 3', span: '' },
+    { id: 4, src: '/foto4.webp', alt: 'Momen 4', span: '' },
+    { id: 5, src: '/foto5.webp', alt: 'Momen 5', span: '' },
+    { id: 6, src: '/foto6.webp', alt: 'Momen 6', span: 'col-span-2' },
+    { id: 7, src: '/foto7.webp', alt: 'Momen 7', span: '' },
+    { id: 8, src: '/foto8.webp', alt: 'Momen 8', span: 'row-span-2' },
+    { id: 9, src: '/foto9.webp', alt: 'Momen 9', span: 'col-span-2' },
+    { id: 10, src: '/foto10.webp', alt: 'Momen 10', span: '' },
+    { id: 11, src: '/foto11.webp', alt: 'Momen 11', span: '' },
+    { id: 12, src: '/foto12.webp', alt: 'Momen 12', span: 'col-span-2 row-span-2' },
+    { id: 13, src: '/foto13.webp', alt: 'Momen 13', span: '' },
+    { id: 14, src: '/foto14.webp', alt: 'Momen 14', span: '' },
+    { id: 15, src: '/foto15.webp', alt: 'Momen 15', span: '' },
+    { id: 16, src: '/foto16.webp', alt: 'Momen 16', span: 'col-span-2' },
   ]
 
   // Fade out background music

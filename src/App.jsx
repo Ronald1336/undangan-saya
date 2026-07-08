@@ -78,12 +78,12 @@ function useActiveSection(sectionIds, isReady) {
 
 const SLIDESHOW_PHOTOS = [
   '/couple.jpg.jpeg',
-  '/galeri-1.jpg.jpeg',
-  '/galeri-2.jpg.jpeg',
-  '/galeri-3.jpg.jpeg',
-  '/galeri-4.jpg.jpeg',
-  '/galeri-5.jpg.jpeg',
-  '/galeri-6.jpg.jpeg',
+  '/foto1.webp',
+  '/foto2.webp',
+  '/foto3.webp',
+  '/foto4.webp',
+  '/foto5.webp',
+  '/foto6.webp',
 ]
 
 export default function App() {
