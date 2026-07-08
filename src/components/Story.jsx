@@ -4,7 +4,7 @@ const stories = [
   {
     title: 'Satu Muara',
     text: 'Sebuah perjalanan tentang dua jiwa yang memilih untuk berhenti mencari dan mulai membangun.',
-    photo: '/galeri-1.jpg.jpeg',
+    photo: '/foto1.webp',
     photoPosition: 'right',
   },
   {
@@ -16,13 +16,13 @@ const stories = [
   {
     title: 'Sabar & Pembuktian',
     text: 'Ada ribuan kompromi di balik senyuman. Ada jutaan doa yang kita bisikkan di sepertiga malam. Kita belajar bahwa mencintai adalah kerja keras; tentang bagaimana meredam ego, membasuh luka dengan maaf, dan mengubah keraguan menjadi keyakinan yang tak tergoyahkan. Bukan sekadar janji di lisan, tapi bukti nyata melalui pengorbanan yang menyatukan dua keluarga dalam satu restu yang tulus.',
-    photo: '/galeri-4.jpg.jpeg',
+    photo: '/foto2.webp',
     photoPosition: 'right',
   },
   {
     title: 'Ketentuan & Doa',
     text: 'Dunia mungkin penuh ketidakpastian, namun di hadapan Sang Pemilik Hati, kita menaruh seluruh harap. Kami percaya bahwa setiap detak waktu telah diatur dengan indah. Dengan segala kerendahan hati dan kepasrahan, kami menanti saat di mana sebuah ikrar suci akan menyatukan dua napas dalam satu pengabdian yang abadi.',
-    photo: '/galeri-5.jpg.jpeg',
+    photo: '/foto3.webp',
     photoPosition: 'left',
   },
   {
