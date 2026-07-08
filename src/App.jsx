@@ -157,11 +157,11 @@ export default function App() {
 
   return (
     <>
-      {/* Global background slideshow — always visible */}
-      <BackgroundSlideshow />
+      {/* Global background slideshow — only on cover page, not after open */}
+      {!isOpen && <BackgroundSlideshow />}
 
       {/* Audio */}
-      <audio ref={audioRef} src="/lagu.mp3" loop preload="auto" />
+      <audio ref={audioRef} src="/lagu.mp3" loop preload="none" />
 
       {/* Cover / Opening — placeholder for now */}
       {!isOpen && (
