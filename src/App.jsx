@@ -153,7 +153,7 @@ export default function App() {
       <BackgroundSlideshow />
 
       {/* Audio */}
-      <audio ref={audioRef} src="/ordinary.mp3" loop preload="auto" />
+      <audio ref={audioRef} src="/lagu.mp3" loop preload="auto" />
 
       {/* Cover / Opening — placeholder for now */}
       {!isOpen && (
