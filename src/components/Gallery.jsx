@@ -4,23 +4,30 @@ import { Play } from 'lucide-react'
 
 const YOUTUBE_VIDEO_ID = '3NK-7tSpucM'
 
+// Grid layout (3 cols, grid-flow-dense, no gaps):
+// Row 1-2: foto1 (2×2) | foto2 (1×1) / foto3 (1×1)
+// Row 3:   foto4 | foto5 | foto6
+// Row 4:   foto7 (2×1) | foto8
+// Row 5:   foto9 | foto10 (2×1)
+// Row 6:   foto11 | foto12 | foto13
+// Row 7-8: foto14 (2×2) | foto15 (1×1) / foto16 (1×1)
 const ALL_PHOTOS = [
   { id: 1,  src: '/foto1.webp',  alt: 'Momen 1',  span: 'col-span-2 row-span-2' },
   { id: 2,  src: '/foto2.webp',  alt: 'Momen 2',  span: '' },
   { id: 3,  src: '/foto3.webp',  alt: 'Momen 3',  span: '' },
   { id: 4,  src: '/foto4.webp',  alt: 'Momen 4',  span: '' },
   { id: 5,  src: '/foto5.webp',  alt: 'Momen 5',  span: '' },
-  { id: 6,  src: '/foto6.webp',  alt: 'Momen 6',  span: 'col-span-2' },
-  { id: 7,  src: '/foto7.webp',  alt: 'Momen 7',  span: '' },
-  { id: 8,  src: '/foto8.webp',  alt: 'Momen 8',  span: 'row-span-2' },
-  { id: 9,  src: '/foto9.webp',  alt: 'Momen 9',  span: 'col-span-2' },
-  { id: 10, src: '/foto10.webp', alt: 'Momen 10', span: '' },
+  { id: 6,  src: '/foto6.webp',  alt: 'Momen 6',  span: '' },
+  { id: 7,  src: '/foto7.webp',  alt: 'Momen 7',  span: 'col-span-2' },
+  { id: 8,  src: '/foto8.webp',  alt: 'Momen 8',  span: '' },
+  { id: 9,  src: '/foto9.webp',  alt: 'Momen 9',  span: '' },
+  { id: 10, src: '/foto10.webp', alt: 'Momen 10', span: 'col-span-2' },
   { id: 11, src: '/foto11.webp', alt: 'Momen 11', span: '' },
-  { id: 12, src: '/foto12.webp', alt: 'Momen 12', span: 'col-span-2 row-span-2' },
+  { id: 12, src: '/foto12.webp', alt: 'Momen 12', span: '' },
   { id: 13, src: '/foto13.webp', alt: 'Momen 13', span: '' },
-  { id: 14, src: '/foto14.webp', alt: 'Momen 14', span: '' },
+  { id: 14, src: '/foto14.webp', alt: 'Momen 14', span: 'col-span-2 row-span-2' },
   { id: 15, src: '/foto15.webp', alt: 'Momen 15', span: '' },
-  { id: 16, src: '/foto16.webp', alt: 'Momen 16', span: 'col-span-2' },
+  { id: 16, src: '/foto16.webp', alt: 'Momen 16', span: '' },
 ]
 
 export default function Gallery({ audioRef, isPlaying, setIsPlaying }) {
