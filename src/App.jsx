@@ -157,8 +157,8 @@ export default function App() {
 
   return (
     <>
-      {/* Global background slideshow — only on cover page, not after open */}
-      {!isOpen && <BackgroundSlideshow />}
+      {/* Global background slideshow — only 5 photos, safe for iOS */}
+      <BackgroundSlideshow />
 
       {/* Audio */}
       <audio ref={audioRef} src="/lagu.mp3" loop preload="none" />

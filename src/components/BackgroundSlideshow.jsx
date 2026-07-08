@@ -3,20 +3,10 @@ import { useState, useEffect } from 'react'
 
 const PHOTOS = [
   '/foto1.webp',
-  '/foto2.webp',
-  '/foto3.webp',
   '/foto4.webp',
-  '/foto5.webp',
-  '/foto6.webp',
   '/foto7.webp',
-  '/foto8.webp',
-  '/foto9.webp',
-  '/foto10.webp',
   '/foto11.webp',
-  '/foto12.webp',
-  '/foto13.webp',
   '/foto14.webp',
-  '/foto15.webp',
 ]
 
 export default function BackgroundSlideshow() {

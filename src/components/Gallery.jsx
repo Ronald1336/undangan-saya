@@ -11,23 +11,24 @@ export default function Gallery({ audioRef, isPlaying, setIsPlaying }) {
   const containerRef = useRef(null)
   const fadeIntervalRef = useRef(null)
 
+  // Split into two groups so the first 8 load first, last 8 load lazily when scrolled near
   const photos = [
-    { id: 1,  src: '/foto1.webp',  alt: 'Momen 1'  },
-    { id: 2,  src: '/foto2.webp',  alt: 'Momen 2'  },
-    { id: 3,  src: '/foto3.webp',  alt: 'Momen 3'  },
-    { id: 4,  src: '/foto4.webp',  alt: 'Momen 4'  },
-    { id: 5,  src: '/foto5.webp',  alt: 'Momen 5'  },
-    { id: 6,  src: '/foto6.webp',  alt: 'Momen 6'  },
-    { id: 7,  src: '/foto7.webp',  alt: 'Momen 7'  },
-    { id: 8,  src: '/foto8.webp',  alt: 'Momen 8'  },
-    { id: 9,  src: '/foto9.webp',  alt: 'Momen 9'  },
-    { id: 10, src: '/foto10.webp', alt: 'Momen 10' },
-    { id: 11, src: '/foto11.webp', alt: 'Momen 11' },
-    { id: 12, src: '/foto12.webp', alt: 'Momen 12' },
-    { id: 13, src: '/foto13.webp', alt: 'Momen 13' },
-    { id: 14, src: '/foto14.webp', alt: 'Momen 14' },
-    { id: 15, src: '/foto15.webp', alt: 'Momen 15' },
-    { id: 16, src: '/foto16.webp', alt: 'Momen 16' },
+    { id: 1,  src: '/foto1.webp',  alt: 'Momen 1',  span: 'col-span-2 row-span-2' },
+    { id: 2,  src: '/foto2.webp',  alt: 'Momen 2',  span: '' },
+    { id: 3,  src: '/foto3.webp',  alt: 'Momen 3',  span: '' },
+    { id: 4,  src: '/foto4.webp',  alt: 'Momen 4',  span: '' },
+    { id: 5,  src: '/foto5.webp',  alt: 'Momen 5',  span: '' },
+    { id: 6,  src: '/foto6.webp',  alt: 'Momen 6',  span: 'col-span-2' },
+    { id: 7,  src: '/foto7.webp',  alt: 'Momen 7',  span: '' },
+    { id: 8,  src: '/foto8.webp',  alt: 'Momen 8',  span: 'row-span-2' },
+    { id: 9,  src: '/foto9.webp',  alt: 'Momen 9',  span: 'col-span-2' },
+    { id: 10, src: '/foto10.webp', alt: 'Momen 10', span: '' },
+    { id: 11, src: '/foto11.webp', alt: 'Momen 11', span: '' },
+    { id: 12, src: '/foto12.webp', alt: 'Momen 12', span: 'col-span-2 row-span-2' },
+    { id: 13, src: '/foto13.webp', alt: 'Momen 13', span: '' },
+    { id: 14, src: '/foto14.webp', alt: 'Momen 14', span: '' },
+    { id: 15, src: '/foto15.webp', alt: 'Momen 15', span: '' },
+    { id: 16, src: '/foto16.webp', alt: 'Momen 16', span: 'col-span-2' },
   ]
 
   // Fade out background music
@@ -200,12 +201,12 @@ export default function Gallery({ audioRef, isPlaying, setIsPlaying }) {
       </div>
 
       {/* Photo Grid */}
-      <div className="reveal stagger-3 max-w-md mx-auto grid grid-cols-3 gap-1.5">
+      <div className="reveal stagger-3 max-w-md mx-auto grid grid-cols-3 gap-1.5 grid-flow-dense">
         {photos.map((photo) => (
           <div
             key={photo.id}
-            className="overflow-hidden rounded-lg"
-            style={{ aspectRatio: '1/1' }}
+            className={`${photo.span} overflow-hidden rounded-lg`}
+            style={{ aspectRatio: photo.span?.includes('row-span-2') ? '1/1' : photo.span?.includes('col-span-2') && !photo.span?.includes('row-span-2') ? '2/1' : '1/1' }}
           >
             <img
               src={photo.src}
