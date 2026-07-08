@@ -4,32 +4,34 @@ import { Play } from 'lucide-react'
 
 const YOUTUBE_VIDEO_ID = '3NK-7tSpucM'
 
+const ALL_PHOTOS = [
+  { id: 1,  src: '/foto1.webp',  alt: 'Momen 1',  span: 'col-span-2 row-span-2' },
+  { id: 2,  src: '/foto2.webp',  alt: 'Momen 2',  span: '' },
+  { id: 3,  src: '/foto3.webp',  alt: 'Momen 3',  span: '' },
+  { id: 4,  src: '/foto4.webp',  alt: 'Momen 4',  span: '' },
+  { id: 5,  src: '/foto5.webp',  alt: 'Momen 5',  span: '' },
+  { id: 6,  src: '/foto6.webp',  alt: 'Momen 6',  span: 'col-span-2' },
+  { id: 7,  src: '/foto7.webp',  alt: 'Momen 7',  span: '' },
+  { id: 8,  src: '/foto8.webp',  alt: 'Momen 8',  span: 'row-span-2' },
+  { id: 9,  src: '/foto9.webp',  alt: 'Momen 9',  span: 'col-span-2' },
+  { id: 10, src: '/foto10.webp', alt: 'Momen 10', span: '' },
+  { id: 11, src: '/foto11.webp', alt: 'Momen 11', span: '' },
+  { id: 12, src: '/foto12.webp', alt: 'Momen 12', span: 'col-span-2 row-span-2' },
+  { id: 13, src: '/foto13.webp', alt: 'Momen 13', span: '' },
+  { id: 14, src: '/foto14.webp', alt: 'Momen 14', span: '' },
+  { id: 15, src: '/foto15.webp', alt: 'Momen 15', span: '' },
+  { id: 16, src: '/foto16.webp', alt: 'Momen 16', span: 'col-span-2' },
+]
+
 export default function Gallery({ audioRef, isPlaying, setIsPlaying }) {
   const [videoPlaying, setVideoPlaying] = useState(false)
   const [showVideo, setShowVideo] = useState(false)
+  const [showAll, setShowAll] = useState(false)
   const playerRef = useRef(null)
   const containerRef = useRef(null)
   const fadeIntervalRef = useRef(null)
 
-  // Split into two groups so the first 8 load first, last 8 load lazily when scrolled near
-  const photos = [
-    { id: 1,  src: '/foto1.webp',  alt: 'Momen 1',  span: 'col-span-2 row-span-2' },
-    { id: 2,  src: '/foto2.webp',  alt: 'Momen 2',  span: '' },
-    { id: 3,  src: '/foto3.webp',  alt: 'Momen 3',  span: '' },
-    { id: 4,  src: '/foto4.webp',  alt: 'Momen 4',  span: '' },
-    { id: 5,  src: '/foto5.webp',  alt: 'Momen 5',  span: '' },
-    { id: 6,  src: '/foto6.webp',  alt: 'Momen 6',  span: 'col-span-2' },
-    { id: 7,  src: '/foto7.webp',  alt: 'Momen 7',  span: '' },
-    { id: 8,  src: '/foto8.webp',  alt: 'Momen 8',  span: 'row-span-2' },
-    { id: 9,  src: '/foto9.webp',  alt: 'Momen 9',  span: 'col-span-2' },
-    { id: 10, src: '/foto10.webp', alt: 'Momen 10', span: '' },
-    { id: 11, src: '/foto11.webp', alt: 'Momen 11', span: '' },
-    { id: 12, src: '/foto12.webp', alt: 'Momen 12', span: 'col-span-2 row-span-2' },
-    { id: 13, src: '/foto13.webp', alt: 'Momen 13', span: '' },
-    { id: 14, src: '/foto14.webp', alt: 'Momen 14', span: '' },
-    { id: 15, src: '/foto15.webp', alt: 'Momen 15', span: '' },
-    { id: 16, src: '/foto16.webp', alt: 'Momen 16', span: 'col-span-2' },
-  ]
+  const photos = showAll ? ALL_PHOTOS : ALL_PHOTOS.slice(0, 8)
 
   // Fade out background music
   const fadeOutMusic = useCallback(() => {
@@ -211,13 +213,32 @@ export default function Gallery({ audioRef, isPlaying, setIsPlaying }) {
             <img
               src={photo.src}
               alt={photo.alt}
-              className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
+              className="w-full h-full object-cover"
               loading="lazy"
               decoding="async"
             />
           </div>
         ))}
       </div>
+
+      {/* Show More Button */}
+      {!showAll && (
+        <div className="text-center mt-6">
+          <button
+            onClick={() => setShowAll(true)}
+            className="px-6 py-2 rounded-full font-sans text-xs tracking-wider uppercase transition-all duration-300 hover:scale-105"
+            style={{
+              background: 'rgba(139,111,71,0.2)',
+              border: '1px solid rgba(139,111,71,0.4)',
+              color: '#D4B896',
+              backdropFilter: 'blur(8px)',
+            }}
+          >
+            ✦ Lihat Lebih Banyak Foto
+          </button>
+        </div>
+      )}
     </section>
   )
 }
+
