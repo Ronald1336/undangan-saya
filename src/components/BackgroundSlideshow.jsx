@@ -31,20 +31,29 @@ export default function BackgroundSlideshow() {
 
   return (
     <div className="fixed inset-0 z-0" aria-hidden="true">
-      {PHOTOS.map((src, i) => (
-        <div
-          key={src}
-          className="absolute inset-0 transition-opacity duration-[2500ms] ease-in-out"
-          style={{ opacity: index === i ? 0.75 : 0 }}
-        >
-          <img
-            src={src}
-            alt=""
-            className="w-full h-full object-cover"
-            loading={i === 0 ? 'eager' : 'lazy'}
-          />
-        </div>
-      ))}
+      {PHOTOS.map((src, i) => {
+        const isActive = i === index;
+        const isNext = i === (index + 1) % PHOTOS.length;
+        const isPrev = i === (index - 1 + PHOTOS.length) % PHOTOS.length;
+        const shouldLoad = isActive || isNext || isPrev;
+
+        return (
+          <div
+            key={src}
+            className="absolute inset-0 transition-opacity duration-[2500ms] ease-in-out"
+            style={{ opacity: isActive ? 0.75 : 0 }}
+          >
+            {shouldLoad && (
+              <img
+                src={src}
+                alt=""
+                className="w-full h-full object-cover"
+                loading={i === 0 ? 'eager' : 'lazy'}
+              />
+            )}
+          </div>
+        )
+      })}
       {/* Light overlay for readability */}
       <div className="absolute inset-0" style={{ background: 'linear-gradient(180deg, rgba(26,15,10,0.3) 0%, rgba(30,20,16,0.25) 50%, rgba(26,15,10,0.3) 100%)' }} />
     </div>

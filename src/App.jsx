@@ -170,15 +170,24 @@ export default function App() {
           style={{ background: 'linear-gradient(180deg, #1A0F0A 0%, #2C1810 50%, #1A0F0A 100%)' }}
         >
           {/* Background photo slideshow */}
-          {SLIDESHOW_PHOTOS.map((src, i) => (
-            <div
-              key={src}
-              className="absolute inset-0 transition-opacity duration-[2000ms] ease-in-out"
-              style={{ opacity: slideIndex === i ? 0.35 : 0 }}
-            >
-              <img src={src} alt="" className="w-full h-full object-cover" loading={i === 0 ? 'eager' : 'lazy'} />
-            </div>
-          ))}
+          {SLIDESHOW_PHOTOS.map((src, i) => {
+            const isActive = i === slideIndex;
+            const isNext = i === (slideIndex + 1) % SLIDESHOW_PHOTOS.length;
+            const isPrev = i === (slideIndex - 1 + SLIDESHOW_PHOTOS.length) % SLIDESHOW_PHOTOS.length;
+            const shouldLoad = isActive || isNext || isPrev;
+
+            return (
+              <div
+                key={src}
+                className="absolute inset-0 transition-opacity duration-[2000ms] ease-in-out"
+                style={{ opacity: isActive ? 0.35 : 0 }}
+              >
+                {shouldLoad && (
+                  <img src={src} alt="" className="w-full h-full object-cover" loading={i === 0 ? 'eager' : 'lazy'} />
+                )}
+              </div>
+            )
+          })}
           <div className="absolute inset-0" style={{ background: 'radial-gradient(ellipse at center, rgba(26,15,10,0.5) 0%, rgba(26,15,10,0.9) 100%)' }}></div>
 
           <div className="relative z-10 text-center px-6">
