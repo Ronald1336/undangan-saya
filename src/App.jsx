@@ -157,17 +157,8 @@ export default function App() {
 
   return (
     <>
-      {/* Background slideshow only on cover page to prevent iOS OOM crashes */}
-      {!isOpen && <BackgroundSlideshow />}
-
-      {/* When open, use a lightweight CSS gradient background */}
-      {isOpen && (
-        <div
-          className="fixed inset-0 z-0"
-          style={{ background: 'linear-gradient(160deg, #1A0F0A 0%, #2C1810 40%, #1A0F0A 70%, #0F0805 100%)' }}
-          aria-hidden="true"
-        />
-      )}
+      {/* Global background slideshow */}
+      <BackgroundSlideshow />
 
       {/* Audio */}
       <audio ref={audioRef} src="/lagu.mp3" loop preload="none" />

@@ -26,12 +26,11 @@ const ALL_PHOTOS = [
 export default function Gallery({ audioRef, isPlaying, setIsPlaying }) {
   const [videoPlaying, setVideoPlaying] = useState(false)
   const [showVideo, setShowVideo] = useState(false)
-  const [showAll, setShowAll] = useState(false)
   const playerRef = useRef(null)
   const containerRef = useRef(null)
   const fadeIntervalRef = useRef(null)
 
-  const photos = showAll ? ALL_PHOTOS : ALL_PHOTOS.slice(0, 8)
+  const photos = ALL_PHOTOS
 
   // Fade out background music
   const fadeOutMusic = useCallback(() => {
@@ -203,41 +202,26 @@ export default function Gallery({ audioRef, isPlaying, setIsPlaying }) {
       </div>
 
       {/* Photo Grid */}
-      <div className="reveal stagger-3 max-w-md mx-auto grid grid-cols-3 gap-1.5 grid-flow-dense">
-        {photos.map((photo) => (
+      <div className="max-w-md mx-auto grid grid-cols-3 gap-1.5 grid-flow-dense">
+        {photos.map((photo, i) => (
           <div
             key={photo.id}
-            className={`${photo.span} overflow-hidden rounded-lg`}
-            style={{ aspectRatio: photo.span?.includes('row-span-2') ? '1/1' : photo.span?.includes('col-span-2') && !photo.span?.includes('row-span-2') ? '2/1' : '1/1' }}
+            className={`${photo.span} overflow-hidden rounded-lg reveal`}
+            style={{
+              aspectRatio: photo.span?.includes('row-span-2') ? '1/1' : photo.span?.includes('col-span-2') && !photo.span?.includes('row-span-2') ? '2/1' : '1/1',
+              transitionDelay: `${i * 60}ms`,
+            }}
           >
             <img
               src={photo.src}
               alt={photo.alt}
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover transition-transform duration-500 hover:scale-105"
               loading="lazy"
               decoding="async"
             />
           </div>
         ))}
       </div>
-
-      {/* Show More Button */}
-      {!showAll && (
-        <div className="text-center mt-6">
-          <button
-            onClick={() => setShowAll(true)}
-            className="px-6 py-2 rounded-full font-sans text-xs tracking-wider uppercase transition-all duration-300 hover:scale-105"
-            style={{
-              background: 'rgba(139,111,71,0.2)',
-              border: '1px solid rgba(139,111,71,0.4)',
-              color: '#D4B896',
-              backdropFilter: 'blur(8px)',
-            }}
-          >
-            ✦ Lihat Lebih Banyak Foto
-          </button>
-        </div>
-      )}
     </section>
   )
 }
