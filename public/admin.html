@@ -10,209 +10,154 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet" />
   <script src="/guests.js"></script>
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root {
-      --gold: #C9A96E; --gold-light: #E8D5A3;
-      --brown-dark: #1A0F0A; --brown-mid: #2C1810;
-      --text-primary: #F5ECD7; --text-secondary: #C4A882; --text-muted: #8B6F4E;
-      --surface: rgba(44,24,16,0.6); --surface-hover: rgba(60,36,20,0.8);
-      --border: rgba(201,169,110,0.2); --border-hover: rgba(201,169,110,0.5);
-      --success: #4CAF7D; --danger: #f87171;
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --gold:#C9A96E;--gold-light:#E8D5A3;
+      --brown-dark:#1A0F0A;--brown-mid:#2C1810;
+      --text-primary:#F5ECD7;--text-secondary:#C4A882;--text-muted:#8B6F4E;
+      --surface:rgba(44,24,16,0.6);--surface-hover:rgba(60,36,20,0.8);
+      --border:rgba(201,169,110,0.2);--border-hover:rgba(201,169,110,0.5);
+      --success:#4CAF7D;--danger:#f87171;--warning:#FBBF24;
     }
-    html { scroll-behavior: smooth; }
-    body {
-      font-family: 'Inter', sans-serif;
-      background: var(--brown-dark);
-      color: var(--text-primary);
-      min-height: 100vh;
-      background-image:
-        radial-gradient(ellipse at 20% 0%, rgba(201,169,110,0.06) 0%, transparent 50%),
-        radial-gradient(ellipse at 80% 100%, rgba(201,169,110,0.04) 0%, transparent 50%);
-    }
+    html{scroll-behavior:smooth}
+    body{font-family:'Inter',sans-serif;background:var(--brown-dark);color:var(--text-primary);min-height:100vh;
+      background-image:radial-gradient(ellipse at 20% 0%,rgba(201,169,110,.06) 0%,transparent 50%),
+        radial-gradient(ellipse at 80% 100%,rgba(201,169,110,.04) 0%,transparent 50%)}
 
     /* Header */
-    .header {
-      background: rgba(26,15,10,0.95); backdrop-filter: blur(20px);
-      border-bottom: 1px solid var(--border); padding: 0 24px;
-      position: sticky; top: 0; z-index: 100;
+    .header{background:rgba(26,15,10,.95);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:0 24px;position:sticky;top:0;z-index:100}
+    .header-inner{max-width:960px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:64px;gap:12px}
+    .brand{display:flex;align-items:center;gap:10px}
+    .brand h1{font-family:'Cormorant Garamond',serif;font-size:18px;color:var(--gold-light)}
+    .brand small{display:block;font-size:11px;color:var(--text-muted)}
+
+    /* Pending bar */
+    .pending-bar{
+      background:rgba(251,191,36,.08);border-bottom:1px solid rgba(251,191,36,.25);
+      padding:10px 24px;display:none;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;
     }
-    .header-inner {
-      max-width: 920px; margin: 0 auto; display: flex;
-      align-items: center; justify-content: space-between; height: 64px; gap: 12px;
-    }
-    .brand { display: flex; align-items: center; gap: 10px; }
-    .brand h1 { font-family: 'Cormorant Garamond',serif; font-size: 18px; color: var(--gold-light); }
-    .brand small { display: block; font-size: 11px; color: var(--text-muted); }
-    .gh-status-dot {
-      width: 8px; height: 8px; border-radius: 50%; margin-left: 6px;
-      background: #f87171; display: inline-block; vertical-align: middle;
-    }
-    .gh-status-dot.ok { background: #4CAF7D; animation: pulse 2s ease infinite; }
-    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+    .pending-bar.show{display:flex}
+    .pending-info{font-size:13px;color:var(--warning);display:flex;align-items:center;gap:8px}
+    .pending-badge{background:var(--warning);color:#1A0F0A;font-size:11px;font-weight:700;padding:2px 8px;border-radius:50px}
 
     /* Main */
-    .main { max-width: 920px; margin: 0 auto; padding: 28px 24px; }
-
-    /* GitHub Setup Banner */
-    .gh-banner {
-      background: rgba(255,165,0,0.07); border: 1px solid rgba(255,165,0,0.25);
-      border-radius: 14px; padding: 18px 20px; margin-bottom: 24px;
-      display: flex; align-items: flex-start; gap: 14px;
-    }
-    .gh-banner.connected {
-      background: rgba(76,175,125,0.07); border-color: rgba(76,175,125,0.25);
-    }
-    .gh-banner-icon { font-size: 22px; flex-shrink: 0; margin-top: 2px; }
-    .gh-banner-body { flex: 1; }
-    .gh-banner-title { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
-    .gh-banner-sub { font-size: 12px; color: var(--text-muted); line-height: 1.6; }
-    .gh-setup-row { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
-    .gh-token-input {
-      flex: 1; min-width: 200px; background: rgba(0,0,0,0.3);
-      border: 1px solid var(--border); border-radius: 8px;
-      color: var(--text-primary); font-family: monospace; font-size: 12px;
-      padding: 9px 12px; outline: none; transition: border-color 0.2s;
-    }
-    .gh-token-input:focus { border-color: var(--gold); }
-    .gh-token-input::placeholder { color: var(--text-muted); font-family: 'Inter',sans-serif; }
+    .main{max-width:960px;margin:0 auto;padding:24px}
 
     /* Stats */
-    .stats-bar { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; margin-bottom: 24px; }
-    .stat-card {
-      background: var(--surface); border: 1px solid var(--border);
-      border-radius: 12px; padding: 16px; text-align: center;
-    }
-    .stat-num { font-size: 28px; font-weight: 700; color: var(--gold); font-family: 'Cormorant Garamond',serif; }
-    .stat-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 2px; }
+    .stats-bar{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:22px}
+    .stat-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:14px;text-align:center}
+    .stat-num{font-size:26px;font-weight:700;color:var(--gold);font-family:'Cormorant Garamond',serif}
+    .stat-label{font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.08em;margin-top:2px}
+    .stat-card.pending-stat{border-color:rgba(251,191,36,.3);background:rgba(251,191,36,.05)}
+    .stat-card.pending-stat .stat-num{color:var(--warning)}
 
     /* Toolbar */
-    .toolbar { display: flex; gap: 10px; margin-bottom: 18px; flex-wrap: wrap; }
-    .search-wrap { position: relative; flex: 1; min-width: 200px; }
-    .search-icon { position: absolute; left: 13px; top: 50%; transform: translateY(-50%); color: var(--text-muted); pointer-events: none; }
-    .search-input {
-      width: 100%; background: var(--surface); border: 1px solid var(--border);
-      border-radius: 10px; color: var(--text-primary); font-family: 'Inter',sans-serif;
-      font-size: 14px; padding: 10px 14px 10px 38px; outline: none; transition: border-color 0.2s;
-    }
-    .search-input:focus { border-color: var(--gold); }
-    .search-input::placeholder { color: var(--text-muted); }
+    .toolbar{display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap}
+    .search-wrap{position:relative;flex:1;min-width:200px}
+    .search-icon{position:absolute;left:13px;top:50%;transform:translateY(-50%);color:var(--text-muted);pointer-events:none}
+    .search-input{width:100%;background:var(--surface);border:1px solid var(--border);border-radius:10px;
+      color:var(--text-primary);font-family:'Inter',sans-serif;font-size:14px;padding:10px 14px 10px 38px;
+      outline:none;transition:border-color .2s}
+    .search-input:focus{border-color:var(--gold)}
+    .search-input::placeholder{color:var(--text-muted)}
 
     /* Buttons */
-    .btn {
-      display: inline-flex; align-items: center; gap: 6px;
-      padding: 10px 18px; border-radius: 10px; font-family: 'Inter',sans-serif;
-      font-size: 13px; font-weight: 500; cursor: pointer; border: none;
-      transition: all 0.18s; white-space: nowrap; text-decoration: none;
-    }
-    .btn:active { transform: scale(0.97); }
-    .btn-primary { background: linear-gradient(135deg, var(--gold), #A07840); color: #1A0F0A; }
-    .btn-primary:hover { filter: brightness(1.1); }
-    .btn-ghost { background: var(--surface); border: 1px solid var(--border); color: var(--text-secondary); }
-    .btn-ghost:hover { border-color: var(--border-hover); color: var(--text-primary); }
-    .btn-wa { background: rgba(37,211,102,0.1); border: 1px solid rgba(37,211,102,0.25); color: #25D366; }
-    .btn-wa:hover { background: rgba(37,211,102,0.18); }
-    .btn-danger { background: rgba(248,113,113,0.1); border: 1px solid rgba(248,113,113,0.25); color: var(--danger); }
-    .btn-sm { padding: 7px 13px; font-size: 12px; border-radius: 8px; }
+    .btn{display:inline-flex;align-items:center;gap:6px;padding:10px 18px;border-radius:10px;
+      font-family:'Inter',sans-serif;font-size:13px;font-weight:500;cursor:pointer;border:none;
+      transition:all .18s;white-space:nowrap;text-decoration:none}
+    .btn:active{transform:scale(.97)}
+    .btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
+    .btn-primary{background:linear-gradient(135deg,var(--gold),#A07840);color:#1A0F0A}
+    .btn-primary:hover:not(:disabled){filter:brightness(1.1)}
+    .btn-ghost{background:var(--surface);border:1px solid var(--border);color:var(--text-secondary)}
+    .btn-ghost:hover{border-color:var(--border-hover);color:var(--text-primary)}
+    .btn-save{background:linear-gradient(135deg,#4CAF7D,#2E7D55);color:#fff}
+    .btn-save:hover:not(:disabled){filter:brightness(1.1)}
+    .btn-wa{background:rgba(37,211,102,.1);border:1px solid rgba(37,211,102,.25);color:#25D366}
+    .btn-wa:hover{background:rgba(37,211,102,.18)}
+    .btn-danger{background:rgba(248,113,113,.1);border:1px solid rgba(248,113,113,.25);color:var(--danger)}
+    .btn-warning{background:rgba(251,191,36,.1);border:1px solid rgba(251,191,36,.25);color:var(--warning)}
+    .btn-sm{padding:7px 13px;font-size:12px;border-radius:8px}
 
-    /* Guest Grid */
-    .section-label {
-      font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em;
-      color: var(--text-muted); margin-bottom: 14px;
-      display: flex; align-items: center; gap: 10px;
-    }
-    .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
-    .guest-grid { display: grid; gap: 10px; }
-    .guest-card {
-      background: var(--surface); border: 1px solid var(--border);
-      border-radius: 14px; padding: 16px 18px;
-      transition: border-color 0.2s; animation: cardIn 0.25s ease both;
-    }
-    .guest-card:hover { border-color: var(--border-hover); }
-    @keyframes cardIn { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:translateY(0); } }
-    .card-top { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 10px; flex-wrap: wrap; }
-    .guest-info { display: flex; align-items: center; gap: 12px; }
-    .avatar {
-      width: 38px; height: 38px; border-radius: 10px; flex-shrink: 0;
-      background: linear-gradient(135deg, var(--gold), #7A5A2A);
-      display: flex; align-items: center; justify-content: center; font-size: 15px;
-    }
-    .guest-name { font-size: 14px; font-weight: 600; }
-    .guest-code { font-size: 11px; color: var(--text-muted); font-family: monospace; background: rgba(255,255,255,0.04); padding: 2px 6px; border-radius: 4px; margin-top: 2px; display: inline-block; }
-    .card-link { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
-    .link-display {
-      flex: 1; background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.05);
-      border-radius: 7px; padding: 7px 11px; font-size: 12px; font-family: monospace;
-      color: var(--text-muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
-    }
-    .card-actions { display: flex; gap: 7px; flex-wrap: wrap; }
+    /* Section label */
+    .section-label{font-size:11px;text-transform:uppercase;letter-spacing:.12em;color:var(--text-muted);
+      margin-bottom:12px;display:flex;align-items:center;gap:10px}
+    .section-label::after{content:'';flex:1;height:1px;background:var(--border)}
 
-    /* Empty */
-    .empty { text-align: center; padding: 50px 20px; color: var(--text-muted); }
-    .empty .icon { font-size: 36px; margin-bottom: 10px; }
+    /* Guest grid */
+    .guest-grid{display:grid;gap:10px}
+    .guest-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;
+      padding:16px 18px;transition:border-color .2s;animation:cardIn .25s ease both}
+    .guest-card:hover{border-color:var(--border-hover)}
+    .guest-card.is-new{border-color:rgba(76,175,125,.4);background:rgba(76,175,125,.04)}
+    .guest-card.is-deleted{border-color:rgba(248,113,113,.4);background:rgba(248,113,113,.04);opacity:.7}
+    @keyframes cardIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+    .card-top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px;flex-wrap:wrap}
+    .guest-info{display:flex;align-items:center;gap:12px}
+    .avatar{width:38px;height:38px;border-radius:10px;flex-shrink:0;
+      background:linear-gradient(135deg,var(--gold),#7A5A2A);display:flex;align-items:center;justify-content:center;font-size:15px}
+    .guest-name{font-size:14px;font-weight:600}
+    .guest-name.deleted{text-decoration:line-through;color:var(--text-muted)}
+    .guest-code{font-size:11px;color:var(--text-muted);font-family:monospace;background:rgba(255,255,255,.04);padding:2px 6px;border-radius:4px;margin-top:2px;display:inline-block}
+    .tag{font-size:10px;padding:2px 8px;border-radius:50px;font-weight:600;letter-spacing:.04em}
+    .tag-new{background:rgba(76,175,125,.2);color:#4CAF7D}
+    .tag-del{background:rgba(248,113,113,.2);color:var(--danger)}
+    .card-link{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+    .link-display{flex:1;background:rgba(0,0,0,.2);border:1px solid rgba(255,255,255,.05);border-radius:7px;
+      padding:7px 11px;font-size:12px;font-family:monospace;color:var(--text-muted);
+      overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    .card-actions{display:flex;gap:7px;flex-wrap:wrap}
+    .empty{text-align:center;padding:50px 20px;color:var(--text-muted)}
+    .empty .icon{font-size:36px;margin-bottom:10px}
 
     /* Modal */
-    .modal-overlay {
-      position: fixed; inset: 0; background: rgba(0,0,0,0.7);
-      backdrop-filter: blur(6px); z-index: 1000;
-      display: flex; align-items: center; justify-content: center; padding: 20px;
-      opacity: 0; pointer-events: none; transition: opacity 0.2s;
-    }
-    .modal-overlay.open { opacity: 1; pointer-events: all; }
-    .modal {
-      background: #2C1810; border: 1px solid var(--border-hover);
-      border-radius: 18px; padding: 26px; width: 100%; max-width: 460px;
-      transform: scale(0.95); transition: transform 0.2s;
-    }
-    .modal-overlay.open .modal { transform: scale(1); }
-    .modal h2 { font-family: 'Cormorant Garamond',serif; font-size: 22px; color: var(--gold-light); margin-bottom: 20px; }
-    .form-group { margin-bottom: 14px; }
-    .form-label { display: block; font-size: 11px; font-weight: 500; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 7px; }
-    .form-input {
-      width: 100%; background: rgba(0,0,0,0.3); border: 1px solid var(--border);
-      border-radius: 10px; color: var(--text-primary); font-family: 'Inter',sans-serif;
-      font-size: 14px; padding: 11px 13px; outline: none; transition: border-color 0.2s;
-    }
-    .form-input:focus { border-color: var(--gold); }
-    .form-input::placeholder { color: var(--text-muted); }
-    .modal-footer { display: flex; gap: 10px; justify-content: flex-end; margin-top: 6px; }
+    .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);backdrop-filter:blur(6px);z-index:1000;
+      display:flex;align-items:center;justify-content:center;padding:20px;
+      opacity:0;pointer-events:none;transition:opacity .2s}
+    .modal-overlay.open{opacity:1;pointer-events:all}
+    .modal{background:#2C1810;border:1px solid var(--border-hover);border-radius:18px;padding:26px;
+      width:100%;max-width:460px;transform:scale(.95);transition:transform .2s}
+    .modal-overlay.open .modal{transform:scale(1)}
+    .modal h2{font-family:'Cormorant Garamond',serif;font-size:22px;color:var(--gold-light);margin-bottom:18px}
+    .form-group{margin-bottom:14px}
+    .form-label{display:block;font-size:11px;font-weight:500;color:var(--text-muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:7px}
+    .form-input{width:100%;background:rgba(0,0,0,.3);border:1px solid var(--border);border-radius:10px;
+      color:var(--text-primary);font-family:'Inter',sans-serif;font-size:14px;padding:11px 13px;outline:none;transition:border-color .2s}
+    .form-input:focus{border-color:var(--gold)}
+    .form-input::placeholder{color:var(--text-muted)}
+    .modal-footer{display:flex;gap:10px;justify-content:flex-end;margin-top:8px}
 
-    /* Status area */
-    .status-area { margin-top: 16px; border-radius: 12px; padding: 14px; font-size: 13px; display: none; }
-    .status-area.show { display: block; animation: cardIn 0.2s ease; }
-    .status-loading { background: rgba(201,169,110,0.07); border: 1px solid rgba(201,169,110,0.2); color: var(--gold); }
-    .status-success { background: rgba(76,175,125,0.08); border: 1px solid rgba(76,175,125,0.25); color: #4CAF7D; }
-    .status-error { background: rgba(248,113,113,0.08); border: 1px solid rgba(248,113,113,0.25); color: var(--danger); }
-    .status-area .link-val { font-family: monospace; font-size: 12px; word-break: break-all; margin: 8px 0; color: var(--gold); }
-    .status-btns { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+    /* Save all modal */
+    .save-list{background:rgba(0,0,0,.25);border:1px solid var(--border);border-radius:10px;padding:12px;margin-bottom:16px;max-height:200px;overflow-y:auto}
+    .save-item{display:flex;align-items:center;gap:8px;padding:5px 0;font-size:13px;border-bottom:1px solid rgba(255,255,255,.04)}
+    .save-item:last-child{border-bottom:none}
+    .save-icon{font-size:14px;width:20px;text-align:center}
+
+    /* Progress */
+    .progress-wrap{background:rgba(0,0,0,.3);border-radius:50px;height:6px;margin:12px 0;overflow:hidden;display:none}
+    .progress-wrap.show{display:block}
+    .progress-bar{height:100%;background:linear-gradient(90deg,var(--gold),#4CAF7D);border-radius:50px;transition:width .3s;width:0%}
+
+    /* Settings */
+    .gh-dot{width:8px;height:8px;border-radius:50%;background:#f87171;display:inline-block;vertical-align:middle;margin-left:5px}
+    .gh-dot.ok{background:#4CAF7D;animation:blink 2s ease infinite}
+    @keyframes blink{0%,100%{opacity:1}50%{opacity:.4}}
 
     /* Spinner */
-    .spinner { display: inline-block; width: 14px; height: 14px; border: 2px solid rgba(201,169,110,0.3); border-top-color: var(--gold); border-radius: 50%; animation: spin 0.7s linear infinite; }
-    @keyframes spin { to { transform: rotate(360deg); } }
-
-    /* Deploy badge */
-    .deploy-badge {
-      display: inline-flex; align-items: center; gap: 5px;
-      font-size: 11px; color: var(--text-muted); margin-top: 8px;
-    }
-    .deploy-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--success); animation: pulse 1.5s ease infinite; }
-    @keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:0.3; } }
+    .spinner{display:inline-block;width:13px;height:13px;border:2px solid rgba(255,255,255,.2);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite}
+    @keyframes spin{to{transform:rotate(360deg)}}
 
     /* Toast */
-    .toast {
-      position: fixed; bottom: 24px; left: 50%;
-      transform: translateX(-50%) translateY(80px);
-      background: rgba(26,15,10,0.95); border: 1px solid var(--gold);
-      color: var(--gold-light); padding: 11px 22px; border-radius: 50px;
-      font-size: 13px; font-weight: 500; z-index: 9999;
-      transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1);
-      backdrop-filter: blur(10px); pointer-events: none;
-    }
-    .toast.show { transform: translateX(-50%) translateY(0); }
+    .toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);
+      background:rgba(26,15,10,.95);border:1px solid var(--gold);color:var(--gold-light);
+      padding:11px 22px;border-radius:50px;font-size:13px;font-weight:500;z-index:9999;
+      transition:transform .3s cubic-bezier(.34,1.56,.64,1);backdrop-filter:blur(10px);pointer-events:none}
+    .toast.show{transform:translateX(-50%) translateY(0)}
 
-    @media (max-width: 540px) {
-      .main { padding: 18px 14px; }
-      .stats-bar { gap: 8px; }
-      .brand h1 { font-size: 15px; }
+    @media(max-width:600px){
+      .main{padding:16px}
+      .stats-bar{grid-template-columns:repeat(2,1fr)}
+      .brand h1{font-size:15px}
     }
   </style>
 </head>
@@ -223,14 +168,11 @@
   <div class="header-inner">
     <div class="brand">
       <span style="font-size:20px">💍</span>
-      <div>
-        <h1>Ronald & Grace — Admin</h1>
-        <small>Manajemen Undangan</small>
-      </div>
+      <div><h1>Ronald & Grace — Admin</h1><small>Manajemen Undangan</small></div>
     </div>
-    <div style="display:flex;gap:9px;align-items:center;">
-      <button class="btn btn-ghost btn-sm" onclick="openSettingsModal()" title="Pengaturan GitHub Token">
-        ⚙️ <span id="ghDot" class="gh-status-dot"></span>
+    <div style="display:flex;gap:8px;align-items:center">
+      <button class="btn btn-ghost btn-sm" onclick="openSettings()" title="Pengaturan GitHub Token">
+        ⚙️ <span class="gh-dot" id="ghDot"></span>
       </button>
       <a href="/" target="_blank" class="btn btn-ghost btn-sm">🔗 Undangan</a>
       <button class="btn btn-primary btn-sm" onclick="openAddModal()">＋ Tambah Tamu</button>
@@ -238,95 +180,100 @@
   </div>
 </header>
 
-<!-- Modal Pengaturan GitHub -->
-<div class="modal-overlay" id="settingsModal" onclick="if(event.target.id==='settingsModal')closeSettingsModal()">
-  <div class="modal">
-    <h2>⚙️ Pengaturan</h2>
-    <p style="font-size:13px;color:var(--text-muted);margin-bottom:18px;line-height:1.7">
-      Masukkan <b style="color:var(--text-secondary)">GitHub Personal Access Token</b> agar setiap tambah/hapus tamu otomatis tersimpan ke file <code>guests.js</code> dan Vercel langsung deploy.
-    </p>
-    <div id="settingsStatus" style="margin-bottom:14px;"></div>
-    <div class="form-group">
-      <label class="form-label">GitHub Token</label>
-      <input type="password" class="form-input" id="settingsTokenInput" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" style="font-family:monospace;font-size:13px" />
-    </div>
-    <p style="font-size:12px;color:var(--text-muted);margin-bottom:16px">
-      Belum punya token? <a href="https://github.com/settings/tokens/new?description=undangan-admin&scopes=repo" target="_blank" style="color:var(--gold)">Buat di sini</a> — centang scope <b>repo</b> saja.
-    </p>
-    <div class="modal-footer">
-      <button class="btn btn-danger btn-sm" onclick="clearToken()" id="btnClearToken" style="margin-right:auto">Hapus Token</button>
-      <button class="btn btn-ghost" onclick="closeSettingsModal()">Tutup</button>
-      <button class="btn btn-primary" onclick="saveTokenFromSettings()">💾 Simpan Token</button>
-    </div>
+<!-- Pending Changes Bar -->
+<div class="pending-bar" id="pendingBar">
+  <div class="pending-info">
+    ✏️ <span class="pending-badge" id="pendingCount">0</span>
+    <span id="pendingText">perubahan belum disimpan ke GitHub</span>
+  </div>
+  <div style="display:flex;gap:8px">
+    <button class="btn btn-warning btn-sm" onclick="discardAll()">✕ Buang</button>
+    <button class="btn btn-save btn-sm" onclick="openSaveAllModal()">
+      💾 Simpan Semua ke GitHub
+    </button>
   </div>
 </div>
 
 <main class="main">
-
-  <!-- GitHub Setup Banner -->
-  <div class="gh-banner" id="ghBanner">
-    <div class="gh-banner-icon" id="ghIcon">⚙️</div>
-    <div class="gh-banner-body">
-      <div class="gh-banner-title" id="ghTitle">Hubungkan GitHub agar Tamu Tersimpan Otomatis</div>
-      <div class="gh-banner-sub" id="ghSub">
-        Tanpa token, tamu yang ditambah hanya tersimpan di browser ini saja.<br>
-        Masukkan <b>GitHub Personal Access Token</b> agar data langsung disimpan ke file <code>guests.js</code> dan Vercel otomatis deploy.
-        <br><br>
-        <a href="https://github.com/settings/tokens/new?description=undangan-admin&scopes=repo" target="_blank" style="color:var(--gold)">→ Buat token di sini (centang scope: repo)</a>
-      </div>
-      <div class="gh-setup-row" id="ghSetupRow">
-        <input type="password" class="gh-token-input" id="ghTokenInput" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" />
-        <button class="btn btn-primary btn-sm" onclick="saveToken()">Simpan Token</button>
-      </div>
-    </div>
-  </div>
-
   <!-- Stats -->
   <div class="stats-bar">
     <div class="stat-card"><div class="stat-num" id="statTotal">0</div><div class="stat-label">Total Tamu</div></div>
-    <div class="stat-card"><div class="stat-num" id="statBase">0</div><div class="stat-label">Data Tetap</div></div>
-    <div class="stat-card"><div class="stat-num" id="statLocal">0</div><div class="stat-label">Sesi Ini</div></div>
+    <div class="stat-card"><div class="stat-num" id="statBase">0</div><div class="stat-label">Tersimpan</div></div>
+    <div class="stat-card pending-stat"><div class="stat-num" id="statAdded">0</div><div class="stat-label">Ditambah</div></div>
+    <div class="stat-card pending-stat"><div class="stat-num" id="statDeleted">0</div><div class="stat-label">Dihapus</div></div>
   </div>
 
   <!-- Toolbar -->
   <div class="toolbar">
     <div class="search-wrap">
       <span class="search-icon">🔍</span>
-      <input type="text" class="search-input" id="searchInput" placeholder="Cari nama tamu..." oninput="renderGuests()" />
+      <input type="text" class="search-input" id="searchInput" placeholder="Cari nama tamu..." oninput="render()"/>
     </div>
-    <button class="btn btn-ghost btn-sm" onclick="clearSearch()">Reset</button>
+    <button class="btn btn-ghost btn-sm" onclick="document.getElementById('searchInput').value='';render()">Reset</button>
   </div>
 
   <div class="section-label">Daftar Tamu</div>
   <div class="guest-grid" id="guestGrid"></div>
-  <div class="empty" id="emptyState" style="display:none">
-    <div class="icon">👥</div>
-    <p>Tidak ada tamu yang cocok.</p>
-  </div>
-
+  <div class="empty" id="emptyState" style="display:none"><div class="icon">👥</div><p>Tidak ada tamu.</p></div>
 </main>
 
-<!-- Modal Tambah Tamu -->
-<div class="modal-overlay" id="addModal" onclick="handleOverlayClick(event)">
+<!-- Modal: Tambah Tamu -->
+<div class="modal-overlay" id="addModal" onclick="if(event.target.id==='addModal')closeAdd()">
   <div class="modal">
-    <h2>✦ Tambah Tamu</h2>
+    <h2>＋ Tambah Tamu</h2>
     <div class="form-group">
       <label class="form-label">Nama Tamu</label>
-      <input type="text" class="form-input" id="guestNameInput" placeholder="cth: Bapak Gubernur" onkeydown="if(event.key==='Enter')addGuest()" />
+      <input type="text" class="form-input" id="inp_name" placeholder="cth: Bapak Gubernur" onkeydown="if(event.key==='Enter')doAdd()"/>
     </div>
     <div class="form-group">
-      <label class="form-label">Kode URL <span style="color:var(--text-muted);font-weight:400;">(otomatis, boleh diubah)</span></label>
-      <input type="text" class="form-input" id="guestCodeInput" placeholder="akan di-generate" style="font-family:monospace" />
+      <label class="form-label">Kode URL <span style="color:var(--text-muted);font-weight:400">(boleh diubah)</span></label>
+      <input type="text" class="form-input" id="inp_code" placeholder="otomatis" style="font-family:monospace"/>
     </div>
-
-    <!-- Status area -->
-    <div class="status-area" id="statusArea">
-      <div id="statusMsg"></div>
-    </div>
-
+    <p style="font-size:12px;color:var(--text-muted);margin-bottom:4px">
+      ℹ️ Tamu ditambahkan ke daftar sementara. Klik <b>Simpan Semua</b> untuk menyimpan ke GitHub.
+    </p>
     <div class="modal-footer">
-      <button class="btn btn-ghost" onclick="closeAddModal()">Tutup</button>
-      <button class="btn btn-primary" id="addBtn" onclick="addGuest()">Tambah & Simpan</button>
+      <button class="btn btn-ghost" onclick="closeAdd()">Batal</button>
+      <button class="btn btn-primary" onclick="doAdd()">＋ Tambah</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: Simpan Semua -->
+<div class="modal-overlay" id="saveAllModal" onclick="if(event.target.id==='saveAllModal'&&!isSaving)closeSaveAll()">
+  <div class="modal">
+    <h2>💾 Simpan Semua ke GitHub</h2>
+    <p style="font-size:13px;color:var(--text-muted);margin-bottom:14px;line-height:1.7">
+      Semua perubahan berikut akan disimpan dalam <b>1 commit</b> ke GitHub. Vercel akan deploy otomatis setelahnya.
+    </p>
+    <div class="save-list" id="saveList"></div>
+    <div class="progress-wrap" id="progressWrap"><div class="progress-bar" id="progressBar"></div></div>
+    <div id="saveStatus" style="font-size:13px;margin-bottom:8px"></div>
+    <div class="modal-footer" id="saveFooter">
+      <button class="btn btn-ghost" onclick="closeSaveAll()">Batal</button>
+      <button class="btn btn-save" onclick="doSaveAll()" id="btnDoSave">💾 Simpan Sekarang</button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: Pengaturan -->
+<div class="modal-overlay" id="settingsModal" onclick="if(event.target.id==='settingsModal')closeSettings()">
+  <div class="modal">
+    <h2>⚙️ Pengaturan GitHub</h2>
+    <div id="settingsStatus" style="margin-bottom:14px"></div>
+    <div class="form-group">
+      <label class="form-label">GitHub Personal Access Token</label>
+      <input type="password" class="form-input" id="inp_token" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" style="font-family:monospace;font-size:13px"/>
+    </div>
+    <p style="font-size:12px;color:var(--text-muted);margin-bottom:16px;line-height:1.7">
+      Belum punya token?
+      <a href="https://github.com/settings/tokens/new?description=undangan-admin&scopes=repo" target="_blank" style="color:var(--gold)">Buat di sini</a>
+      — centang scope <b>repo</b> saja.
+    </p>
+    <div class="modal-footer">
+      <button class="btn btn-danger btn-sm" onclick="clearToken()" style="margin-right:auto">Hapus Token</button>
+      <button class="btn btn-ghost" onclick="closeSettings()">Tutup</button>
+      <button class="btn btn-primary" onclick="saveToken()">💾 Simpan Token</button>
     </div>
   </div>
 </div>
@@ -335,260 +282,311 @@
 <div class="toast" id="toast"></div>
 
 <script>
-  // ── Config ───────────────────────────────────────────
-  const BASE_URL  = 'https://ronald-grace.vercel.app'
-  const GH_OWNER  = 'Ronald1336'
-  const GH_REPO   = 'undangan-saya'
-  const GH_FILE   = 'public/guests.js'
-  const LS_TOKEN  = 'gh_admin_token'
-  const LS_EXTRA  = 'admin_extra_guests'
+  // ── Config ──────────────────────────────────────────────
+  const BASE_URL = 'https://ronald-grace.vercel.app'
+  const GH_OWNER = 'Ronald1336'
+  const GH_REPO  = 'undangan-saya'
+  const GH_FILE  = 'public/guests.js'
+  const LS_TOKEN = 'gh_admin_token'
 
-  // ── Data helpers ─────────────────────────────────────
-  function getBaseGuests() { return window.GUESTS || {} }
-  function getExtraGuests() { try { return JSON.parse(localStorage.getItem(LS_EXTRA)||'{}') } catch { return {} } }
-  function getAllGuests() { return { ...getBaseGuests(), ...getExtraGuests() } }
+  // ── State ───────────────────────────────────────────────
+  // pendingAdds:    { code: name }   — guests added this session
+  // pendingDeletes: Set of codes     — guests marked for deletion
+  const pendingAdds    = {}
+  const pendingDeletes = new Set()
+  let isSaving = false
+
+  // ── Data ────────────────────────────────────────────────
+  const baseGuests = () => window.GUESTS || {}
+
+  function mergedGuests() {
+    const result = { ...baseGuests() }
+    pendingDeletes.forEach(c => delete result[c])
+    Object.assign(result, pendingAdds)
+    return result
+  }
+
   function getToken() { return localStorage.getItem(LS_TOKEN) || '' }
 
   function generateCode() {
     const chars = 'abcdefghijklmnopqrstuvwxyz0123456789'
-    const all = getAllGuests()
+    const used  = { ...baseGuests(), ...pendingAdds }
     let code
-    do { code = Array.from({length:4},()=>chars[Math.floor(Math.random()*chars.length)]).join('') } while (all[code])
+    do { code = Array.from({length:4},()=>chars[Math.floor(Math.random()*chars.length)]).join('') } while(used[code])
     return code
   }
 
-  // ── GitHub Banner ─────────────────────────────────────
-  function updateGhBanner() {
-    const token = getToken()
-    const banner = document.getElementById('ghBanner')
-    if (token) {
-      banner.classList.add('connected')
-      document.getElementById('ghIcon').textContent = '✅'
-      document.getElementById('ghTitle').textContent = 'Terhubung ke GitHub — Tamu akan tersimpan otomatis!'
-      document.getElementById('ghSub').innerHTML = `Token tersimpan. Setiap tamu baru langsung di-commit ke GitHub dan Vercel akan deploy otomatis dalam ~30 detik.<br><br><a href="#" onclick="clearToken();return false" style="color:var(--danger);font-size:12px">× Hapus token</a>`
-      document.getElementById('ghSetupRow').style.display = 'none'
-    } else {
-      banner.classList.remove('connected')
-    }
+  // ── Pending helpers ──────────────────────────────────────
+  function pendingCount() { return Object.keys(pendingAdds).length + pendingDeletes.size }
+
+  function updatePendingBar() {
+    const n   = pendingCount()
+    const bar = document.getElementById('pendingBar')
+    document.getElementById('pendingCount').textContent = n
+    document.getElementById('pendingText').textContent  =
+      n === 1 ? 'perubahan belum disimpan ke GitHub' : 'perubahan belum disimpan ke GitHub'
+    bar.classList.toggle('show', n > 0)
+    // update stats
+    document.getElementById('statAdded').textContent   = Object.keys(pendingAdds).length
+    document.getElementById('statDeleted').textContent = pendingDeletes.size
+    const total = Object.keys(mergedGuests()).length
+    document.getElementById('statTotal').textContent = total
+    document.getElementById('statBase').textContent  = Object.keys(baseGuests()).length - pendingDeletes.size
   }
 
-  function saveToken() {
-    const val = document.getElementById('ghTokenInput').value.trim()
-    if (!val.startsWith('ghp_') && !val.startsWith('github_pat_')) {
-      showToast('⚠️ Token tidak valid. Harus diawali ghp_ atau github_pat_')
-      return
-    }
-    localStorage.setItem(LS_TOKEN, val)
-    updateGhBanner()
-    showToast('✅ Token tersimpan!')
+  function discardAll() {
+    if (!confirm('Buang semua perubahan yang belum disimpan?')) return
+    Object.keys(pendingAdds).forEach(k => delete pendingAdds[k])
+    pendingDeletes.clear()
+    updatePendingBar()
+    render()
+    showToast('Perubahan dibuang')
   }
 
-  function clearToken() {
-    localStorage.removeItem(LS_TOKEN)
-    document.getElementById('ghTokenInput').value = ''
-    updateGhBanner()
-    showToast('Token dihapus')
-  }
-
-  // ── GitHub API ────────────────────────────────────────
-  async function getFileInfo() {
-    const res = await fetch(`https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents/${GH_FILE}`, {
-      headers: { Authorization: `Bearer ${getToken()}`, Accept: 'application/vnd.github+json' }
-    })
-    if (!res.ok) throw new Error(`GitHub API error: ${res.status} ${res.statusText}`)
-    return res.json()
-  }
-
-  function buildGuestsFileContent(guests) {
-    const lines = Object.entries(guests).map(([k,v]) => `  "${k}": "${v}",`)
-    return `// =============================================\n// DAFTAR TAMU UNDANGAN\n// Edit file ini untuk menambah/mengubah tamu\n// =============================================\n// Format: "kode": "Nama Tamu"\n// URL undangan: ${BASE_URL}/kode\n// =============================================\n\nwindow.GUESTS = {\n${lines.join('\n')}\n};\n`
-  }
-
-  async function commitGuestsToGitHub(newGuests, commitMsg) {
-    const fileInfo = await getFileInfo()
-    const content  = btoa(unescape(encodeURIComponent(buildGuestsFileContent(newGuests))))
-    const res = await fetch(`https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents/${GH_FILE}`, {
-      method: 'PUT',
-      headers: {
-        Authorization: `Bearer ${getToken()}`,
-        Accept: 'application/vnd.github+json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ message: commitMsg, content, sha: fileInfo.sha })
-    })
-    if (!res.ok) {
-      const err = await res.json()
-      throw new Error(err.message || `HTTP ${res.status}`)
-    }
-    return res.json()
-  }
-
-  // ── Add Guest ─────────────────────────────────────────
-  async function addGuest() {
-    const name = document.getElementById('guestNameInput').value.trim()
-    let   code = document.getElementById('guestCodeInput').value.trim() || generateCode()
-    if (!name) { document.getElementById('guestNameInput').focus(); showToast('⚠️ Masukkan nama tamu'); return }
-
-    const link   = `${BASE_URL}/${code}`
-    const addBtn = document.getElementById('addBtn')
-    const area   = document.getElementById('statusArea')
-    const msg    = document.getElementById('statusMsg')
-
-    addBtn.disabled = true
-
-    if (getToken()) {
-      // ── GitHub mode: simpan permanen ──
-      showStatus('loading', `<span class="spinner"></span> Menyimpan ke GitHub...`)
-      try {
-        const allGuests = { ...getAllGuests(), [code]: name }
-        await commitGuestsToGitHub(allGuests, `feat: tambah tamu "${name}" (${code})`)
-
-        // Also update window.GUESTS live
-        if (!window.GUESTS) window.GUESTS = {}
-        window.GUESTS[code] = name
-
-        showStatus('success', `
-          <b>🎉 Berhasil! Tamu tersimpan permanen.</b>
-          <div class="link-val">${link}</div>
-          <div class="deploy-badge"><span class="deploy-dot"></span> Vercel sedang deploy (~30 detik)…</div>
-          <div class="status-btns">
-            <button class="btn btn-ghost btn-sm" onclick="copyText('${link}')">📋 Copy Link</button>
-            <button class="btn btn-wa btn-sm" onclick="shareWa('${escJs(name)}','${link}')">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
-              WhatsApp
-            </button>
-          </div>
-        `)
-        renderGuests()
-      } catch(e) {
-        showStatus('error', `❌ Gagal simpan ke GitHub: ${e.message}<br><small>Cek token atau koneksi internet Anda.</small>`)
-      }
-    } else {
-      // ── Fallback: simpan di localStorage saja ──
-      const extra = getExtraGuests()
-      extra[code] = name
-      localStorage.setItem(LS_EXTRA, JSON.stringify(extra))
-
-      showStatus('success', `
-        <b>⚠️ Tamu ditambah (hanya di browser ini)</b>
-        <div class="link-val">${link}</div>
-        <small style="color:var(--text-muted)">Hubungkan GitHub Token agar tersimpan permanen.</small>
-        <div class="status-btns">
-          <button class="btn btn-ghost btn-sm" onclick="copyText('${link}')">📋 Copy Link</button>
-          <button class="btn btn-wa btn-sm" onclick="shareWa('${escJs(name)}','${link}')">💬 WhatsApp</button>
-        </div>
-      `)
-      renderGuests()
-    }
-    addBtn.disabled = false
-  }
-
-  function showStatus(type, html) {
-    const area = document.getElementById('statusArea')
-    const msg  = document.getElementById('statusMsg')
-    area.className = `status-area show status-${type}`
-    msg.innerHTML  = html
-    area.scrollIntoView({ behavior:'smooth', block:'nearest' })
-  }
-
-  // ── Delete Guest ──────────────────────────────────────
-  async function deleteGuest(code, name) {
-    if (!confirm(`Hapus tamu "${name}"?`)) return
-    const isBase = !!getBaseGuests()[code]
-
-    if (isBase && getToken()) {
-      showToast('⏳ Menghapus dari GitHub...')
-      try {
-        const allGuests = { ...getAllGuests() }
-        delete allGuests[code]
-        await commitGuestsToGitHub(allGuests, `chore: hapus tamu "${name}" (${code})`)
-        if (window.GUESTS) delete window.GUESTS[code]
-        showToast('✅ Tamu dihapus & Vercel deploy otomatis!')
-        renderGuests()
-      } catch(e) { showToast(`❌ Gagal: ${e.message}`) }
-    } else {
-      const extra = getExtraGuests()
-      delete extra[code]
-      localStorage.setItem(LS_EXTRA, JSON.stringify(extra))
-      renderGuests()
-      showToast('🗑 Dihapus dari sesi ini')
-    }
-  }
-
-  // ── Render ────────────────────────────────────────────
-  function renderGuests() {
-    const all   = getAllGuests()
-    const extra = getExtraGuests()
-    const base  = getBaseGuests()
+  // ── Render ───────────────────────────────────────────────
+  function render() {
     const q     = document.getElementById('searchInput').value.toLowerCase()
-
-    document.getElementById('statTotal').textContent = Object.keys(all).length
-    document.getElementById('statBase').textContent  = Object.keys(base).length
-    document.getElementById('statLocal').textContent = Object.keys(extra).length
-
     const grid  = document.getElementById('guestGrid')
     const empty = document.getElementById('emptyState')
     grid.innerHTML = ''
 
-    const filtered = Object.entries(all).filter(([c,n]) =>
-      n.toLowerCase().includes(q) || c.toLowerCase().includes(q)
-    )
-    if (!filtered.length) { empty.style.display='block'; return }
+    // Build full list: base + pending adds, mark deletions
+    const allCodes = new Set([
+      ...Object.keys(baseGuests()),
+      ...Object.keys(pendingAdds)
+    ])
+
+    const entries = [...allCodes]
+      .map(code => {
+        const name = pendingAdds[code] || baseGuests()[code] || ''
+        return { code, name,
+          isNew: !!pendingAdds[code],
+          isDeleted: pendingDeletes.has(code)
+        }
+      })
+      .filter(({ code, name }) =>
+        name.toLowerCase().includes(q) || code.toLowerCase().includes(q)
+      )
+
+    if (!entries.length) { empty.style.display='block'; return }
     empty.style.display = 'none'
 
-    filtered.forEach(([code,name],i) => {
-      const link    = `${BASE_URL}/${code}`
-      const isExtra = !!extra[code]
-      const card    = document.createElement('div')
-      card.className = 'guest-card'
-      card.style.animationDelay = `${i*25}ms`
+    entries.forEach(({ code, name, isNew, isDeleted }, i) => {
+      const link = `${BASE_URL}/${code}`
+      const card = document.createElement('div')
+      card.className = `guest-card${isNew?' is-new':''}${isDeleted?' is-deleted':''}`
+      card.style.animationDelay = `${i*20}ms`
+
+      const tagHtml = isNew
+        ? `<span class="tag tag-new">● Baru</span>`
+        : isDeleted
+        ? `<span class="tag tag-del">✕ Akan dihapus</span>`
+        : ''
+
+      const actionHtml = isDeleted
+        ? `<button class="btn btn-ghost btn-sm" onclick="undoDelete('${code}')">↩ Batalkan</button>`
+        : `
+          <button class="btn btn-ghost btn-sm" onclick="copyText('${link}')">📋 Copy</button>
+          <button class="btn btn-wa btn-sm" onclick="shareWa('${escJs(name)}','${link}')">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+            WA
+          </button>
+          <button class="btn btn-danger btn-sm" onclick="${isNew?`removeNew('${code}')`:`markDelete('${code}')`}">🗑</button>`
+
       card.innerHTML = `
         <div class="card-top">
           <div class="guest-info">
             <div class="avatar">👤</div>
             <div>
-              <div class="guest-name">${esc(name)}</div>
-              <div class="guest-code">${code}${isExtra?' · sesi ini':''}</div>
+              <div class="guest-name${isDeleted?' deleted':''}">${esc(name)} ${tagHtml}</div>
+              <div class="guest-code">${code}</div>
             </div>
           </div>
         </div>
         <div class="card-link">
           <div class="link-display" title="${link}">${link}</div>
         </div>
-        <div class="card-actions">
-          <button class="btn btn-ghost btn-sm" onclick="copyText('${link}')">📋 Copy</button>
-          <button class="btn btn-wa btn-sm" onclick="shareWa('${escJs(name)}','${link}')">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
-            WA
-          </button>
-          <button class="btn btn-danger btn-sm" onclick="deleteGuest('${code}','${escJs(name)}')">🗑</button>
-        </div>`
+        <div class="card-actions">${actionHtml}</div>`
       grid.appendChild(card)
     })
+
+    updatePendingBar()
   }
 
-  // ── Helpers ───────────────────────────────────────────
-  function copyText(t) { navigator.clipboard.writeText(t).then(()=>showToast('✅ Disalin!')) }
-  function shareWa(name,link) {
+  // ── Guest actions ────────────────────────────────────────
+  function markDelete(code) {
+    pendingDeletes.add(code)
+    render()
+    showToast('Ditandai untuk dihapus — klik Simpan Semua untuk konfirmasi')
+  }
+  function undoDelete(code) {
+    pendingDeletes.delete(code)
+    render()
+  }
+  function removeNew(code) {
+    delete pendingAdds[code]
+    render()
+    showToast('Tamu baru dihapus dari daftar sementara')
+  }
+
+  // ── Add Modal ────────────────────────────────────────────
+  function openAddModal() {
+    document.getElementById('inp_name').value = ''
+    document.getElementById('inp_code').value = generateCode()
+    document.getElementById('addModal').classList.add('open')
+    setTimeout(()=>document.getElementById('inp_name').focus(), 150)
+  }
+  function closeAdd() { document.getElementById('addModal').classList.remove('open') }
+
+  function doAdd() {
+    const name = document.getElementById('inp_name').value.trim()
+    const code = document.getElementById('inp_code').value.trim() || generateCode()
+    if (!name) { document.getElementById('inp_name').focus(); showToast('⚠️ Isi nama tamu'); return }
+    if (mergedGuests()[code]) { showToast('⚠️ Kode sudah digunakan'); return }
+    pendingAdds[code] = name
+    closeAdd()
+    render()
+    showToast(`✅ "${name}" ditambahkan — klik Simpan Semua untuk menyimpan`)
+  }
+
+  // ── Save All ─────────────────────────────────────────────
+  function openSaveAllModal() {
+    if (!getToken()) {
+      openSettings()
+      showToast('⚠️ Isi GitHub Token dulu sebelum menyimpan')
+      return
+    }
+    const list = document.getElementById('saveList')
+    const adds = Object.entries(pendingAdds)
+    const dels = [...pendingDeletes]
+    list.innerHTML = [
+      ...adds.map(([c,n]) => `<div class="save-item"><span class="save-icon">✅</span><span>Tambah: <b>${esc(n)}</b> <span style="color:var(--text-muted);font-family:monospace">(/${c})</span></span></div>`),
+      ...dels.map(c => `<div class="save-item"><span class="save-icon">🗑</span><span>Hapus: <b>${esc(baseGuests()[c]||c)}</b> <span style="color:var(--text-muted);font-family:monospace">(/${c})</span></span></div>`)
+    ].join('') || '<p style="color:var(--text-muted);font-size:13px;text-align:center">Tidak ada perubahan.</p>'
+
+    document.getElementById('saveStatus').textContent = ''
+    document.getElementById('progressWrap').classList.remove('show')
+    document.getElementById('progressBar').style.width = '0%'
+    document.getElementById('saveFooter').style.display = 'flex'
+    document.getElementById('btnDoSave').disabled = false
+    document.getElementById('saveAllModal').classList.add('open')
+  }
+  function closeSaveAll() {
+    if (isSaving) return
+    document.getElementById('saveAllModal').classList.remove('open')
+  }
+
+  async function doSaveAll() {
+    if (!getToken()) { showToast('⚠️ Token belum diisi'); return }
+    if (pendingCount() === 0) { showToast('Tidak ada perubahan'); return }
+
+    isSaving = true
+    document.getElementById('btnDoSave').disabled = true
+    document.getElementById('saveFooter').style.display = 'none'
+    document.getElementById('progressWrap').classList.add('show')
+    setStatus('loading', '<span class="spinner"></span> Menghubungkan ke GitHub...')
+    setProgress(20)
+
+    try {
+      const newGuests = mergedGuests()
+      setProgress(40)
+      setStatus('loading', '<span class="spinner"></span> Mengambil data file saat ini...')
+
+      const fileRes = await fetch(`https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents/${GH_FILE}`, {
+        headers: { Authorization: `Bearer ${getToken()}`, Accept: 'application/vnd.github+json' }
+      })
+      if (!fileRes.ok) throw new Error(`GitHub API ${fileRes.status}: Cek token Anda`)
+      const fileInfo = await fileRes.json()
+
+      setProgress(65)
+      setStatus('loading', '<span class="spinner"></span> Menyimpan perubahan...')
+
+      const content = buildFileContent(newGuests)
+      const encoded = btoa(unescape(encodeURIComponent(content)))
+      const n       = pendingCount()
+      const msg     = `feat: update daftar tamu (${Object.keys(pendingAdds).length} tambah, ${pendingDeletes.size} hapus)`
+
+      const putRes = await fetch(`https://api.github.com/repos/${GH_OWNER}/${GH_REPO}/contents/${GH_FILE}`, {
+        method: 'PUT',
+        headers: { Authorization: `Bearer ${getToken()}`, Accept: 'application/vnd.github+json', 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message: msg, content: encoded, sha: fileInfo.sha })
+      })
+      if (!putRes.ok) { const e = await putRes.json(); throw new Error(e.message || `HTTP ${putRes.status}`) }
+
+      setProgress(100)
+      setStatus('success', `✅ <b>${n} perubahan berhasil disimpan!</b><br><span style="color:var(--text-muted);font-size:12px">Vercel sedang deploy otomatis (~30 detik)...</span>`)
+
+      // Apply changes to live state
+      window.GUESTS = newGuests
+      Object.keys(pendingAdds).forEach(k => delete pendingAdds[k])
+      pendingDeletes.clear()
+      render()
+
+      document.getElementById('saveFooter').innerHTML = `<button class="btn btn-primary" onclick="closeSaveAll()">Tutup</button>`
+      document.getElementById('saveFooter').style.display = 'flex'
+
+    } catch(e) {
+      setProgress(0)
+      setStatus('error', `❌ Gagal: ${e.message}`)
+      document.getElementById('saveFooter').style.display = 'flex'
+      document.getElementById('btnDoSave').disabled = false
+    }
+    isSaving = false
+  }
+
+  function setProgress(p) {
+    document.getElementById('progressBar').style.width = p + '%'
+  }
+  function setStatus(type, html) {
+    const el = document.getElementById('saveStatus')
+    el.style.color = type==='error' ? 'var(--danger)' : type==='success' ? 'var(--success)' : 'var(--text-secondary)'
+    el.innerHTML = html
+  }
+
+  function buildFileContent(guests) {
+    const lines = Object.entries(guests).map(([k,v]) => `  "${k}": "${v}",`)
+    return `// =============================================\n// DAFTAR TAMU UNDANGAN\n// Edit file ini untuk menambah/mengubah tamu\n// =============================================\n// Format: "kode": "Nama Tamu"\n// URL undangan: ${BASE_URL}/kode\n// =============================================\n\nwindow.GUESTS = {\n${lines.join('\n')}\n};\n`
+  }
+
+  // ── Settings Modal ────────────────────────────────────────
+  function openSettings() {
+    const has = !!getToken()
+    document.getElementById('inp_token').value = ''
+    document.getElementById('settingsStatus').innerHTML = has
+      ? `<div style="background:rgba(76,175,125,.1);border:1px solid rgba(76,175,125,.3);border-radius:10px;padding:12px;font-size:13px;color:#4CAF7D">✅ Token aktif — perubahan akan tersimpan otomatis ke GitHub</div>`
+      : `<div style="background:rgba(248,113,113,.08);border:1px solid rgba(248,113,113,.2);border-radius:10px;padding:12px;font-size:13px;color:#f87171">⚠️ Token belum diisi — klik <b>Simpan Semua</b> tidak akan berfungsi</div>`
+    document.getElementById('settingsModal').classList.add('open')
+    if (!has) setTimeout(()=>document.getElementById('inp_token').focus(), 150)
+  }
+  function closeSettings() { document.getElementById('settingsModal').classList.remove('open') }
+
+  function saveToken() {
+    const val = document.getElementById('inp_token').value.trim()
+    if (!val) { showToast('⚠️ Masukkan token terlebih dahulu'); return }
+    if (!val.startsWith('ghp_') && !val.startsWith('github_pat_')) {
+      showToast('⚠️ Format tidak valid. Harus diawali ghp_ atau github_pat_'); return
+    }
+    localStorage.setItem(LS_TOKEN, val)
+    document.getElementById('ghDot').className = 'gh-dot ok'
+    openSettings()
+    showToast('✅ Token disimpan!')
+  }
+  function clearToken() {
+    if (!confirm('Hapus GitHub token?')) return
+    localStorage.removeItem(LS_TOKEN)
+    document.getElementById('ghDot').className = 'gh-dot'
+    openSettings()
+    showToast('Token dihapus')
+  }
+
+  // ── Helpers ───────────────────────────────────────────────
+  function copyText(t) { navigator.clipboard.writeText(t).then(()=>showToast('✅ Link disalin!')) }
+  function shareWa(name, link) {
     window.open(`https://wa.me/?text=${encodeURIComponent(`Kepada Yth. ${name},\nberikut link undangan pernikahan kami:\n${link}`)}`, '_blank')
   }
-  function esc(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;') }
-  function escJs(s) { return s.replace(/\\/g,'\\\\').replace(/'/g,"\\'") }
-  function clearSearch() { document.getElementById('searchInput').value=''; renderGuests() }
+  function esc(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;') }
+  function escJs(s) { return String(s).replace(/\\/g,'\\\\').replace(/'/g,"\\'") }
 
-  // ── Modal ─────────────────────────────────────────────
-  function openAddModal() {
-    document.getElementById('guestNameInput').value = ''
-    document.getElementById('guestCodeInput').value = generateCode()
-    document.getElementById('statusArea').className = 'status-area'
-    document.getElementById('addBtn').disabled = false
-    document.getElementById('addModal').classList.add('open')
-    setTimeout(()=>document.getElementById('guestNameInput').focus(), 200)
-  }
-  function closeAddModal() { document.getElementById('addModal').classList.remove('open') }
-  function handleOverlayClick(e) { if(e.target.id==='addModal') closeAddModal() }
-
-  // ── Toast ─────────────────────────────────────────────
   let _tt
   function showToast(m) {
     const el = document.getElementById('toast')
@@ -596,48 +594,10 @@
     clearTimeout(_tt); _tt = setTimeout(()=>el.classList.remove('show'), 2800)
   }
 
-  // ── Settings Modal ────────────────────────────────────
-  function openSettingsModal() {
-    const token = getToken()
-    const input = document.getElementById('settingsTokenInput')
-    const statusEl = document.getElementById('settingsStatus')
-    input.value = token ? '••••••••••••••••••••' : ''
-    if (token) {
-      statusEl.innerHTML = `<div style="background:rgba(76,175,125,0.1);border:1px solid rgba(76,175,125,0.3);border-radius:10px;padding:12px;font-size:13px;color:#4CAF7D">✅ Token aktif — tamu tersimpan otomatis ke GitHub</div>`
-    } else {
-      statusEl.innerHTML = `<div style="background:rgba(248,113,113,0.08);border:1px solid rgba(248,113,113,0.2);border-radius:10px;padding:12px;font-size:13px;color:#f87171">⚠️ Belum ada token — tamu hanya tersimpan di browser ini</div>`
-    }
-    document.getElementById('settingsModal').classList.add('open')
-    if (!token) setTimeout(()=>document.getElementById('settingsTokenInput').focus(), 200)
-  }
-
-  function closeSettingsModal() {
-    document.getElementById('settingsModal').classList.remove('open')
-  }
-
-  function saveTokenFromSettings() {
-    const val = document.getElementById('settingsTokenInput').value.trim()
-    if (val.startsWith('•') || !val) { showToast('⚠️ Masukkan token baru terlebih dahulu'); return }
-    if (!val.startsWith('ghp_') && !val.startsWith('github_pat_')) {
-      showToast('⚠️ Format token tidak valid. Harus diawali ghp_ atau github_pat_')
-      return
-    }
-    localStorage.setItem(LS_TOKEN, val)
-    updateGhBanner()
-    updateDot()
-    openSettingsModal() // refresh status display
-    showToast('✅ Token tersimpan! Tamu sekarang tersimpan otomatis.')
-  }
-
-  function updateDot() {
-    const dot = document.getElementById('ghDot')
-    if (dot) dot.className = `gh-status-dot ${getToken() ? 'ok' : ''}`
-  }
-
-  // ── Init ─────────────────────────────────────────────
-  updateGhBanner()
-  updateDot()
-  renderGuests()
+  // ── Init ──────────────────────────────────────────────────
+  document.getElementById('ghDot').className = `gh-dot${getToken()?' ok':''}`
+  document.getElementById('statBase').textContent = Object.keys(baseGuests()).length
+  render()
 </script>
 </body>
 </html>
