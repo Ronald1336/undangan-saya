@@ -11,22 +11,18 @@ import MusicToggle from './components/MusicToggle'
 import AutoScroll from './components/AutoScroll'
 import BackgroundSlideshow from './components/BackgroundSlideshow'
 
-/* ── Guest list: kode pendek → nama tamu ── */
-const GUESTS = {
-  "a1b2": "Pak Camat",
-  "c3d4": "Bapak Bupati",
-}
-
 /* ── Helper: read guest name from URL ── */
-/* Mendukung dua format:
+/* Data tamu dibaca dari /guests.js (public/guests.js)
+   Mendukung dua format URL:
    - Format baru (pendek): /a1b2
    - Format lama (tetap jalan): /?to=Pak%20Camat */
 function getGuestName() {
+  const guests = window.GUESTS || {}
   const path = window.location.pathname.replace('/', '').trim()
   const params = new URLSearchParams(window.location.search)
 
-  if (path && GUESTS[path]) {
-    return GUESTS[path]        // URL baru: /a1b2
+  if (path && guests[path]) {
+    return guests[path]        // URL baru: /a1b2
   } else if (params.get('to')) {
     return params.get('to')    // URL lama: ?to=Pak Camat
   }
