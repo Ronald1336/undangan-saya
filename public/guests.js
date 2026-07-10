@@ -131,4 +131,8 @@ window.GUESTS = {
   "p8gr": "Fridus Nantas Sek.",
   "drea": "Daria Ndiu Sek.",
   "8dt3": "Yuvens Amadatu Sek.",
+  "zaj0": "Keluarga Besar Ema Garung",
+  "w954": "Keluarga Besar Ema Talung",
+  "n3m4": "Keluarga Besar Rama",
+  "38ey": "Katas Petrus Sek.",
 };
