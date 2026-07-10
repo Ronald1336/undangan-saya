@@ -7,6 +7,6 @@
 // =============================================
 
 window.GUESTS = {
-  "c3d4": "Bapak Bupati",
+  "a1b2": "Pak Camat",
   "uatj": "Grace dan Pasangan",
 };
