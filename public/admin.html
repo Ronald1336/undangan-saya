@@ -43,6 +43,12 @@
     .brand { display: flex; align-items: center; gap: 10px; }
     .brand h1 { font-family: 'Cormorant Garamond',serif; font-size: 18px; color: var(--gold-light); }
     .brand small { display: block; font-size: 11px; color: var(--text-muted); }
+    .gh-status-dot {
+      width: 8px; height: 8px; border-radius: 50%; margin-left: 6px;
+      background: #f87171; display: inline-block; vertical-align: middle;
+    }
+    .gh-status-dot.ok { background: #4CAF7D; animation: pulse 2s ease infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
 
     /* Main */
     .main { max-width: 920px; margin: 0 auto; padding: 28px 24px; }
@@ -223,11 +229,37 @@
       </div>
     </div>
     <div style="display:flex;gap:9px;align-items:center;">
+      <button class="btn btn-ghost btn-sm" onclick="openSettingsModal()" title="Pengaturan GitHub Token">
+        ⚙️ <span id="ghDot" class="gh-status-dot"></span>
+      </button>
       <a href="/" target="_blank" class="btn btn-ghost btn-sm">🔗 Undangan</a>
       <button class="btn btn-primary btn-sm" onclick="openAddModal()">＋ Tambah Tamu</button>
     </div>
   </div>
 </header>
+
+<!-- Modal Pengaturan GitHub -->
+<div class="modal-overlay" id="settingsModal" onclick="if(event.target.id==='settingsModal')closeSettingsModal()">
+  <div class="modal">
+    <h2>⚙️ Pengaturan</h2>
+    <p style="font-size:13px;color:var(--text-muted);margin-bottom:18px;line-height:1.7">
+      Masukkan <b style="color:var(--text-secondary)">GitHub Personal Access Token</b> agar setiap tambah/hapus tamu otomatis tersimpan ke file <code>guests.js</code> dan Vercel langsung deploy.
+    </p>
+    <div id="settingsStatus" style="margin-bottom:14px;"></div>
+    <div class="form-group">
+      <label class="form-label">GitHub Token</label>
+      <input type="password" class="form-input" id="settingsTokenInput" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" style="font-family:monospace;font-size:13px" />
+    </div>
+    <p style="font-size:12px;color:var(--text-muted);margin-bottom:16px">
+      Belum punya token? <a href="https://github.com/settings/tokens/new?description=undangan-admin&scopes=repo" target="_blank" style="color:var(--gold)">Buat di sini</a> — centang scope <b>repo</b> saja.
+    </p>
+    <div class="modal-footer">
+      <button class="btn btn-danger btn-sm" onclick="clearToken()" id="btnClearToken" style="margin-right:auto">Hapus Token</button>
+      <button class="btn btn-ghost" onclick="closeSettingsModal()">Tutup</button>
+      <button class="btn btn-primary" onclick="saveTokenFromSettings()">💾 Simpan Token</button>
+    </div>
+  </div>
+</div>
 
 <main class="main">
 
@@ -564,8 +596,47 @@
     clearTimeout(_tt); _tt = setTimeout(()=>el.classList.remove('show'), 2800)
   }
 
+  // ── Settings Modal ────────────────────────────────────
+  function openSettingsModal() {
+    const token = getToken()
+    const input = document.getElementById('settingsTokenInput')
+    const statusEl = document.getElementById('settingsStatus')
+    input.value = token ? '••••••••••••••••••••' : ''
+    if (token) {
+      statusEl.innerHTML = `<div style="background:rgba(76,175,125,0.1);border:1px solid rgba(76,175,125,0.3);border-radius:10px;padding:12px;font-size:13px;color:#4CAF7D">✅ Token aktif — tamu tersimpan otomatis ke GitHub</div>`
+    } else {
+      statusEl.innerHTML = `<div style="background:rgba(248,113,113,0.08);border:1px solid rgba(248,113,113,0.2);border-radius:10px;padding:12px;font-size:13px;color:#f87171">⚠️ Belum ada token — tamu hanya tersimpan di browser ini</div>`
+    }
+    document.getElementById('settingsModal').classList.add('open')
+    if (!token) setTimeout(()=>document.getElementById('settingsTokenInput').focus(), 200)
+  }
+
+  function closeSettingsModal() {
+    document.getElementById('settingsModal').classList.remove('open')
+  }
+
+  function saveTokenFromSettings() {
+    const val = document.getElementById('settingsTokenInput').value.trim()
+    if (val.startsWith('•') || !val) { showToast('⚠️ Masukkan token baru terlebih dahulu'); return }
+    if (!val.startsWith('ghp_') && !val.startsWith('github_pat_')) {
+      showToast('⚠️ Format token tidak valid. Harus diawali ghp_ atau github_pat_')
+      return
+    }
+    localStorage.setItem(LS_TOKEN, val)
+    updateGhBanner()
+    updateDot()
+    openSettingsModal() // refresh status display
+    showToast('✅ Token tersimpan! Tamu sekarang tersimpan otomatis.')
+  }
+
+  function updateDot() {
+    const dot = document.getElementById('ghDot')
+    if (dot) dot.className = `gh-status-dot ${getToken() ? 'ok' : ''}`
+  }
+
   // ── Init ─────────────────────────────────────────────
   updateGhBanner()
+  updateDot()
   renderGuests()
 </script>
 </body>
