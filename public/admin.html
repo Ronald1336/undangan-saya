@@ -582,7 +582,8 @@
   // ── Helpers ───────────────────────────────────────────────
   function copyText(t) { navigator.clipboard.writeText(t).then(()=>showToast('✅ Link disalin!')) }
   function shareWa(name, link) {
-    window.open(`https://wa.me/?text=${encodeURIComponent(`Kepada Yth. ${name},\nberikut link undangan pernikahan kami:\n${link}`)}`, '_blank')
+    const msg = `Yth. \nBapak/Ibu/Saudara/i\n${name}\n\nTanpa mengurangi rasa hormat, perkenankan kami mengundang Bapak/Ibu/Saudara/i, teman sekaligus sahabat, untuk menghadiri acara pernikahan kami:\n\nArnoldus H Garum\n           *&*\nEugracia M Vitus\n\nBerikut klik link untuk info lengkap dari acara kami :\n${link}\n\nMerupakan suatu kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan untuk hadir dan memberikan doa restu.\n\nHormat kami,\nRonald & Grace`;
+    window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, '_blank')
   }
   function esc(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;') }
   function escJs(s) { return String(s).replace(/\\/g,'\\\\').replace(/'/g,"\\'") }
