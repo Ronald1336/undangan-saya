@@ -217,4 +217,5 @@ window.GUESTS = {
   "fqsu": "Rival Tengko dan Pasangan",
   "slu7": "Vian dan Pasangan",
   "zduc": "Keluarga Besar INKOPARENTA",
+  "ww6f": "Keluarga Besar SDN Puntu",
 };
