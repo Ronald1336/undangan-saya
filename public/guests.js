@@ -135,4 +135,5 @@ window.GUESTS = {
   "w954": "Keluarga Besar Ema Talung",
   "n3m4": "Keluarga Besar Rama",
   "38ey": "Katas Petrus Sek.",
+  "5i8r": "Angel Banggur",
 };
