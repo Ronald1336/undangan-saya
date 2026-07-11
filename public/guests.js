@@ -219,4 +219,5 @@ window.GUESTS = {
   "zduc": "Keluarga Besar INKOPARENTA",
   "ww6f": "Keluarga Besar SDN Puntu",
   "45n7": "Fredi Jegabun dan Pasangan",
+  "d5v7": "Yandi Deo Sek.",
 };
