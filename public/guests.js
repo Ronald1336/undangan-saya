@@ -234,4 +234,6 @@ window.GUESTS = {
   "q81r": "Dr.Gusti",
   "u2lc": "Keluarga Besar Dinas Kesehatan Manggarai Barat",
   "kiqg": "CPNS BAPENDA MABAR",
+  "5i3e": "Vitus dan Pasangan",
+  "MBG": "CPNS BAPENDA MABAR",
 };
