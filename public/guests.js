@@ -257,4 +257,6 @@ window.GUESTS = {
   "cvup": "Bidan Evi Sek.",
   "wysk": "Om Basti Sek.",
   "ri10": "Pak Karel Sek.",
+  "l34v": "Opa Jon Ndehe",
+  "2myb": "Frans Borgias",
 };
