@@ -259,4 +259,6 @@ window.GUESTS = {
   "ri10": "Pak Karel Sek.",
   "l34v": "Opa Jon Ndehe",
   "2myb": "Frans Borgias",
+  "n8fk": "Opa Jon Ndehe",
+  "csgu": "Frans Borgias",
 };
