@@ -253,4 +253,8 @@ window.GUESTS = {
   "bizz": "Keluarga Besar Crew Senada",
   "fr92": "KEluarga Besar Crew North Blue",
   "bvgn": "Keluarga Besar  Crew Blackbeard",
+  "p2ou": "Pa Tobi Sek.",
+  "cvup": "Bidan Evi Sek.",
+  "wysk": "Om Basti Sek.",
+  "ri10": "Pak Karel Sek.",
 };
