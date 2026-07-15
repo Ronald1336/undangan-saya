@@ -261,4 +261,6 @@ window.GUESTS = {
   "2myb": "Frans Borgias",
   "n8fk": "Opa Jon Ndehe",
   "csgu": "Frans Borgias",
+  "202g": "Sr. Rein",
+  "g1sb": "Om Hermus Syukur Sek.",
 };
